@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+1.js
+12.js
+123.js
 # dependencies
 /node_modules
 /.pnp

@@ -1,3 +1,109 @@
+/* general settings */
 .App {
   text-align: center;
+  margin: 0 auto;
+}
+
+main {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+header {
+  width: 99vw;
+  background-color: black;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  width: 1440px;
+  margin: 0 auto;
+}
+
+footer {
+  width: 99vw;
+}
+
+.footer {
+  margin: 0 auto;
+  width: 1440px;
+}
+
+/* atom classes */
+
+.w-100 {
+  width: 100%;
+}
+
+.header--register-wrapper {
+  display: flex;
+}
+
+.search-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.header--register {
+  display: flex;
+}
+
+.register-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.register-form > input {
+  width: 100%;
+  padding: 10px;
+}
+
+.register-btn,
+.login-btn {
+  margin: 30px 0;
+  height: 40px;
+}
+
+.header-on-login {
+  display: flex;
+  align-items: center;
+}
+
+.header-favourite-and-basket {
+  display: flex;
+  align-items: center;
+}
+
+.header-menu-item-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header-menu-item-email {
+  opacity: 0.5;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.product-img {
+  width: 200px;
+  height: 150px;
+}
+
+.product {
+  position: relative;
+  border: 1px solid black;
+}
+
+.product-info-wrapper {
+  display: flex;
+  flex-wrap: wrap;
 }
