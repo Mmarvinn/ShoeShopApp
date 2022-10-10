@@ -10,6 +10,13 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { FormHelperText } from '@mui/material';
 import { userSignIn } from '../user/userSignIn';
+import {
+  validatePassword,
+  validateFullName,
+  validateEmail,
+  validatePhone,
+  validateRegisterInputs,
+} from './validationInputs';
 
 export const RegisterForm = () => {
   const [fullNameValidation, setFullNameValidation] = useState(false);
@@ -39,24 +46,8 @@ export const RegisterForm = () => {
     });
   };
 
-  // const handleMouseDownPassword = (event) => {
-  //   event.preventDefault();
-  // };
-
-  const validationRegisterInputs = () => {
-    if (values.fullName === '' || values.fullName === ' ') {
-      setFullNameValidation(true);
-    } else {
-      setFullNameValidation(false);
-    }
-    // setPhoneValidation();
-    //   setEmailValidation();
-    //   setPasswordValidation();
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    validationRegisterInputs();
 
     const data = {
       phone: values.phone,
@@ -65,6 +56,15 @@ export const RegisterForm = () => {
       email: values.email,
     };
 
+    if (
+      !fullNameValidation &&
+      !emailValidation &&
+      !phoneValidation &&
+      !passwordValidation &&
+      validateRegisterInputs(values)
+    ) {
+      console.log(values);
+    }
     // console.log(JSON.stringify(data));
     // console.log(userSignIn(data));
   };
@@ -86,10 +86,11 @@ export const RegisterForm = () => {
           type="text"
           value={values.fullName}
           onChange={handleChange('fullName')}
+          onKeyUp={() => setFullNameValidation(validateFullName(values))}
         />
         {fullNameValidation && (
           <FormHelperText error={fullNameValidation} id="my-helper-text">
-            Incorrect entry.
+            Full Name must contain at least 3 characters.
           </FormHelperText>
         )}
       </Box>
@@ -107,10 +108,11 @@ export const RegisterForm = () => {
           type="email"
           value={values.email}
           onChange={handleChange('email')}
+          onKeyUp={() => setEmailValidation(validateEmail(values))}
         />
         {emailValidation && (
           <FormHelperText error={emailValidation} id="my-helper-text">
-            Incorrect entry.
+            Incorrect email.
           </FormHelperText>
         )}
       </Box>
@@ -125,13 +127,14 @@ export const RegisterForm = () => {
           error={phoneValidation}
           fullWidth
           label="Phone number"
-          type="tel"
+          type="number"
           value={values.phone}
           onChange={handleChange('phone')}
+          onKeyUp={() => setPhoneValidation(validatePhone(values))}
         />
         {phoneValidation && (
           <FormHelperText error={phoneValidation} id="my-helper-text">
-            Incorrect entry.
+            Enter at least 8 numbers, please.
           </FormHelperText>
         )}
       </Box>
@@ -150,12 +153,12 @@ export const RegisterForm = () => {
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange('password')}
+              onKeyUp={() => setPasswordValidation(validatePassword(values))}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
@@ -165,15 +168,13 @@ export const RegisterForm = () => {
               label="Password"
             />
           </FormControl>
-          {passwordValidation && (
+          {
             <FormHelperText error={passwordValidation} id="my-helper-text">
-              Incorrect entry.
+              Password must contain at least 8 characters, 1 letter, 1 special
+              symbol, 1 number
             </FormHelperText>
-          )}
+          }
         </div>
-        <p>
-          The password has to be at least 1 letter, 1special symbol, 1 number
-        </p>
       </Box>
       <input className="register-btn w-100" type="submit" value="Register" />
     </form>
