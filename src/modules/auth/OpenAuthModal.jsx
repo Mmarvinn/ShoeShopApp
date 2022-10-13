@@ -1,11 +1,17 @@
+import { Link, useNavigate } from 'react-router-dom';
+
 export const OpenAuthModal = ({ buttonName, pathname }) => {
-  const handleOpenModal = () => {
-    window.location.pathname = pathname;
-  };
+  const navigate = useNavigate();
+
+  // const handleOpenModal = () => {
+  //   navigate(pathname);
+  // };
 
   return (
-    <>
-      <button onClick={handleOpenModal}>{buttonName}</button>
-    </>
+    <div>
+      <Link className="header--a" to={pathname}>
+        {buttonName}
+      </Link>
+    </div>
   );
 };

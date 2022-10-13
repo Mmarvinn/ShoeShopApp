@@ -14,11 +14,19 @@ import {
   validateEmail,
   validateLoginInputs,
 } from './validationInputs';
+import { userLogIn } from '../user/userLogIn';
+import { isLoggedIn } from '../user/isLoggedIn';
+import { setJwtToken } from '../../services/localStorage';
 
-export const LoginForm = () => {
+export const LoginForm = ({ closeModal }) => {
   const [emailValidation, setEmailValidation] = useState(false);
 
   const [passwordValidation, setPasswordValidation] = useState(false);
+
+  // const [loginError, setLoginError] = useState({
+  //   error: false,
+  //   errorMessage: '',
+  // });
 
   const [values, setValues] = useState({
     password: '',
@@ -41,13 +49,11 @@ export const LoginForm = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
-      phone: values.phone,
       password: values.password,
-      fullName: values.fullName,
       email: values.email,
     };
 
@@ -56,10 +62,37 @@ export const LoginForm = () => {
       !passwordValidation &&
       validateLoginInputs(values)
     ) {
-      console.log(values);
+      // try {
+      const fetchedData = await userLogIn(data);
+
+      if (fetchedData?.error) {
+        console.log(fetchedData.error);
+
+        // setLoginError((prevState) => ({
+        //   ...prevState,
+        //   error: !prevState.error,
+        //   errorMessage: fetchedData.error,
+        // }));
+      } else {
+        console.log(fetchedData);
+        setJwtToken(fetchedData.token);
+
+        // const response = await isLoggedIn();
+        // console.log(await response.json());
+
+        // if (response.status === 200) {
+        //   setLoginError((prevState) => ({
+        //     ...prevState,
+        //     error: !prevState.error,
+        //     errorMessage: '',
+        //   }));
+        closeModal();
+        // }
+      }
+      // } catch (err) {
+      //   console.log(err.status);
+      // }
     }
-    // console.log(JSON.stringify(data));
-    // console.log(userSignIn(data));
   };
 
   return (

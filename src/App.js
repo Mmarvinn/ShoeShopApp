@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Layout } from './components/Layout';
 import { HomePage } from './components/HomePage';
@@ -6,23 +6,39 @@ import { NotFound } from './routes/NotFound';
 import { RegisterModal } from './modules/auth/RegisterModal';
 import { LogInModal } from './modules/auth/LogInModal';
 import { ModalAddToFavouriteWhenNotAuth } from './modules/auth/ModalAddToFavouriteWhenNotAuth';
+import { useLocation } from 'react-router-dom';
 
 function App() {
+  const location = useLocation();
+
+  const slicePathname = (lastPath) => {
+    if (location.pathname.includes(lastPath)) {
+      const newPath = location.pathname.slice(
+        0,
+        location.pathname.length - lastPath.length
+      );
+      return newPath + lastPath;
+    }
+  };
+
   return (
     <div className="App">
       <Layout>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path="/register" element={<RegisterModal />} />
-            <Route path="/login" element={<LogInModal />} />
-            <Route
-              path="/add-to-favourite"
-              element={<ModalAddToFavouriteWhenNotAuth />}
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/home/*" element={<HomePage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Routes>
+          <Route
+            path={slicePathname('/register')}
+            element={<RegisterModal />}
+          />
+          <Route path={slicePathname('/login')} element={<LogInModal />} />
+          <Route
+            path={slicePathname('/add-to-favourite')}
+            element={<ModalAddToFavouriteWhenNotAuth />}
+          />
+        </Routes>
       </Layout>
     </div>
   );

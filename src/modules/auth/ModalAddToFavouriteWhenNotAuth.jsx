@@ -2,9 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LoginForm } from './LoginForm';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -36,31 +36,45 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <LoginForm /> */}
           <Box sx={{ width: 250, margin: '50px auto' }}>
             <h2 style={{ margin: '30px 0', textAlign: 'center' }}>
               To continue please register or log in
             </h2>
 
             <Stack spacing={4} direction="column">
-              <Button sx={{ backgroundColor: '#FD7114' }} variant="contained">
-                Continue to log in
-              </Button>
-              <Button sx={{ backgroundColor: '#FD7114' }} variant="contained">
-                Continue to register
-              </Button>
-              <Button
-                sx={{
-                  color: '#FD7114',
-                  borderColor: '#FD7114',
-                  '&:hover': {
-                    color: '#FD7114',
-                  },
-                }}
-                variant="outlined"
-              >
-                Continue as quest
-              </Button>
+              <Link to="/home/login">
+                <Button
+                  fullWidth
+                  sx={{ backgroundColor: 'var(--orange-main)' }}
+                  variant="contained"
+                >
+                  Continue to log in
+                </Button>
+              </Link>
+              <Link to="/home/register">
+                <Button
+                  fullWidth
+                  sx={{ backgroundColor: 'var(--orange-main)' }}
+                  variant="contained"
+                >
+                  Continue to register
+                </Button>
+              </Link>
+              <Link to="/home">
+                <Button
+                  fullWidth
+                  sx={{
+                    color: 'var(--orange-main)',
+                    borderColor: 'var(--orange-main)',
+                    '&:hover': {
+                      color: 'var(--orange-main)',
+                    },
+                  }}
+                  variant="outlined"
+                >
+                  Continue as quest
+                </Button>
+              </Link>
             </Stack>
           </Box>
         </Box>

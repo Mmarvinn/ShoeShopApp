@@ -2,16 +2,32 @@
 .App {
   text-align: center;
   margin: 0 auto;
+  background-color: #e5e5e5;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --orange-main: #fd7114;
 }
 
 main {
-  width: 1440px;
+  width: 880px;
   margin: 0 auto;
 }
 
 header {
   width: 99vw;
-  background-color: black;
+  height: 76px;
+  background-color: #110f21;
+  display: flex;
 }
 
 .header {
@@ -19,17 +35,22 @@ header {
   justify-content: space-between;
   align-items: center;
   color: white;
-  width: 1440px;
+  width: 1120px;
   margin: 0 auto;
 }
 
 footer {
   width: 99vw;
+  background-color: #f1f1f3;
 }
 
 .footer {
   margin: 0 auto;
-  width: 1440px;
+  width: 1120px;
+  height: 76px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* atom classes */
@@ -45,10 +66,20 @@ footer {
 .search-panel {
   display: flex;
   justify-content: center;
+  margin: 24px 0;
+  background-color: white;
+  border-radius: 4px;
+  align-items: center;
+  height: 65px;
 }
 
 .header--register {
   display: flex;
+  align-items: center;
+}
+
+.header--vertical-line {
+  margin: 0 17px;
 }
 
 .register-form {
@@ -75,6 +106,7 @@ footer {
 .header-favourite-and-basket {
   display: flex;
   align-items: center;
+  margin: 0 40px;
 }
 
 .header-menu-item-wrapper {
@@ -86,24 +118,53 @@ footer {
   opacity: 0.5;
 }
 
+.header-on-login--client {
+  display: flex;
+  align-items: center;
+}
+
 .product-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 14px;
   align-items: center;
   justify-items: center;
 }
 
-.product-img {
-  width: 200px;
-  height: 150px;
+.product--product-img {
+  width: 100%;
+  height: 147px;
+  border-radius: 6px;
+  padding: 4px;
+  object-fit: cover;
 }
 
 .product {
   position: relative;
-  border: 1px solid black;
+  width: 209px;
+  height: 212px;
+  background-color: lightgrey;
+  border-radius: 4px;
+}
+
+.product:hover {
+  cursor: pointer;
 }
 
 .product-info-wrapper {
   display: flex;
   flex-wrap: wrap;
+}
+
+.product--caption {
+  height: 25px;
+  overflow: hidden;
+  padding: 0 10px;
+  text-align: left;
+}
+
+.product--price {
+  text-align: left;
+  padding: 0 10px;
+  font-weight: bold;
 }

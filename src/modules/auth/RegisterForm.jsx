@@ -17,8 +17,9 @@ import {
   validatePhone,
   validateRegisterInputs,
 } from './validationInputs';
+import { setJwtToken } from '../../services/localStorage';
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ closeModal }) => {
   const [fullNameValidation, setFullNameValidation] = useState(false);
 
   const [phoneValidation, setPhoneValidation] = useState(false);
@@ -26,6 +27,12 @@ export const RegisterForm = () => {
   const [emailValidation, setEmailValidation] = useState(false);
 
   const [passwordValidation, setPasswordValidation] = useState(false);
+
+  const [signInError, setSignInError] = useState({
+    error: false,
+    errorStatus: null,
+    errorMessage: '',
+  });
 
   const [values, setValues] = useState({
     password: '',
@@ -46,7 +53,7 @@ export const RegisterForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
@@ -63,10 +70,31 @@ export const RegisterForm = () => {
       !passwordValidation &&
       validateRegisterInputs(values)
     ) {
-      console.log(values);
+      // try {
+      const fetchedData = await userSignIn(data);
+      if (fetchedData?.error) {
+        console.log(fetchedData);
+        setSignInError((prevState) => ({
+          ...prevState,
+          error: true,
+          errorStatus: fetchedData.status,
+          errorMessage: fetchedData.error,
+        }));
+      } else {
+        setSignInError((prevState) => ({
+          ...prevState,
+          error: false,
+          errorStatus: null,
+          errorMessage: '',
+        }));
+        console.log(fetchedData);
+        setJwtToken(fetchedData.token);
+        closeModal();
+      }
+      // } catch (err) {
+      //   console.log(err.status);
+      // }
     }
-    // console.log(JSON.stringify(data));
-    // console.log(userSignIn(data));
   };
 
   return (
@@ -90,7 +118,7 @@ export const RegisterForm = () => {
         />
         {fullNameValidation && (
           <FormHelperText error={fullNameValidation} id="my-helper-text">
-            Full Name must contain at least 3 characters.
+            Full Name must contain only letters Aa-Zz and one space.
           </FormHelperText>
         )}
       </Box>
@@ -102,7 +130,7 @@ export const RegisterForm = () => {
         }}
       >
         <TextField
-          error={emailValidation}
+          error={signInError.errorStatus ? true : emailValidation}
           fullWidth
           label="Email"
           type="email"
@@ -110,10 +138,16 @@ export const RegisterForm = () => {
           onChange={handleChange('email')}
           onKeyUp={() => setEmailValidation(validateEmail(values))}
         />
-        {emailValidation && (
-          <FormHelperText error={emailValidation} id="my-helper-text">
-            Incorrect email.
+        {signInError.errorStatus === 409 ? (
+          <FormHelperText error={true} id="my-helper-text">
+            This email already used
           </FormHelperText>
+        ) : (
+          emailValidation && (
+            <FormHelperText error={emailValidation} id="my-helper-text">
+              Incorrect email.
+            </FormHelperText>
+          )
         )}
       </Box>
       <Box
@@ -134,7 +168,7 @@ export const RegisterForm = () => {
         />
         {phoneValidation && (
           <FormHelperText error={phoneValidation} id="my-helper-text">
-            Enter at least 8 numbers, please.
+            Enter "+" and at least 10 numbers not more 14, please.
           </FormHelperText>
         )}
       </Box>

@@ -27,7 +27,7 @@ export const RegisterModal = () => {
   const handleClose = () => {
     navigate(-1);
   };
-
+  console.log(location.pathname);
   return (
     <div>
       <Modal
@@ -37,7 +37,7 @@ export const RegisterModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <RegisterForm />
+          <RegisterForm closeModal={handleClose} />
           {/* <BelowModal /> */}
         </Box>
       </Modal>

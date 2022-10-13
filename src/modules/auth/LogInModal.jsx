@@ -33,7 +33,7 @@ export const LogInModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <LoginForm />
+          <LoginForm closeModal={handleClose} />
         </Box>
       </Modal>
     </div>

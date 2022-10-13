@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useState, useEffect } from 'react';
 import { getCategories } from '../../modules/product/getCategories';
+import { setCategoryStorage } from '../../services/sessionStorage';
 
 export function CategorySearch() {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ export function CategorySearch() {
   }, []);
 
   const handleChange = (e, newValue) => {
-    console.log(newValue.id);
+    setCategoryStorage(newValue.id);
   };
 
   return (
@@ -29,9 +30,18 @@ export function CategorySearch() {
       id="combo-box-demo"
       options={categories}
       onChange={handleChange}
-      sx={{ width: 250 }}
+      style={{
+        borderRadius: '5px',
+        width: '290px',
+        margin: '0 10px',
+      }}
       renderInput={(categories) => (
-        <TextField {...categories} placeholder="Choose category" />
+        <TextField
+          {...categories}
+          sx={{ bgcolor: '#F9FAFB' }}
+          placeholder="Choose category"
+          size="small"
+        />
       )}
     />
   );

@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { deleteJwtToken } from '../../services/localStorage';
 
 export function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -11,6 +12,11 @@ export function BasicMenu() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const logOut = () => {
+    deleteJwtToken();
     setAnchorEl(null);
   };
 
@@ -23,6 +29,7 @@ export function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         color="inherit"
+        sx={{ minWidth: '0px' }}
       >
         <KeyboardArrowDownIcon />
       </Button>
@@ -46,7 +53,7 @@ export function BasicMenu() {
           </span>
         </MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </div>
   );

@@ -6,9 +6,11 @@ export const HeaderOnLogin = () => {
   return (
     <div className="header-on-login">
       <HeaderIcons />
-      <p>Welcome, Tony</p>
-      <ClientAvatar clientFullName={'Tony Stark'} />
-      <BasicMenu />
+      <div className="header-on-login--client">
+        <p>Welcome, Tony</p>
+        <ClientAvatar clientFullName={'Tony Stark'} />
+        <BasicMenu />
+      </div>
     </div>
   );
 };

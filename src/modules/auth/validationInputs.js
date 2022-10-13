@@ -1,18 +1,11 @@
 export const validatePassword = (values) => {
-  const special = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-  return !special.test(values.password);
+  const regEx = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+  return !regEx.test(values.password);
 };
 
 export const validateFullName = (values) => {
-  if (
-    values.fullName === '' ||
-    values.fullName === ' ' ||
-    values.fullName.length < 3
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+  const regEx = /^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,1}$/;
+  return !regEx.test(values.fullName);
 };
 
 export const validateEmail = (values) => {
@@ -24,11 +17,8 @@ export const validateEmail = (values) => {
 };
 
 export const validatePhone = (values) => {
-  if (values.phone === '' || values.phone === ' ' || values.phone.length < 8) {
-    return true;
-  } else {
-    return false;
-  }
+  const regEx = /^(\\+)?([0-9]){10,14}$/;
+  return !regEx.test(values.phone);
 };
 
 export const validateRegisterInputs = (values) => {

@@ -3,8 +3,8 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 
-export function SimpleBackdrop() {
-  const [open, setOpen] = React.useState(false);
+export function Loading({ isOpen }) {
+  const [open, setOpen] = React.useState(isOpen);
   const handleClose = () => {
     setOpen(false);
   };
@@ -14,7 +14,7 @@ export function SimpleBackdrop() {
 
   return (
     <div>
-      <Button onClick={handleToggle}>Show backdrop</Button>
+      {/* <Button onClick={handleToggle}>Show backdrop</Button> */}
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}

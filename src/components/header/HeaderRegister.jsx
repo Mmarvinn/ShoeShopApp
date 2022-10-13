@@ -7,9 +7,9 @@ export const HeaderRegister = () => {
     <div className="header--register-wrapper">
       <HeaderIcons />
       <div className="header--register">
-        <OpenAuthModal buttonName="SIGN IN" pathname="/register" />
-        <img src={verticalLine} />
-        <OpenAuthModal buttonName="LOG IN" pathname="/login" />
+        <OpenAuthModal buttonName="SIGN IN" pathname="/home/register" />
+        <img className="header--vertical-line" src={verticalLine} />
+        <OpenAuthModal buttonName="LOG IN" pathname="/home/login" />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-import { USER_SIGN_IN } from '../../api';
+import { USER_LOG_IN } from '../../api';
 
-export const userSignIn = async (data) => {
-  const response = await fetch(USER_SIGN_IN, {
+export const userLogIn = async (data) => {
+  const response = await fetch(USER_LOG_IN, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

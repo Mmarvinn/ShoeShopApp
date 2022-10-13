@@ -1,19 +1,13 @@
 import { getProductsByCategory } from '../../api';
 
-export const getProducts = async (category) => {
+export const getProducts = async (category, offset, limit, sortBy) => {
   try {
-    const response = await fetch(getProductsByCategory(category));
+    const response = await fetch(
+      getProductsByCategory(category, offset, limit, sortBy)
+    );
 
     return await response.json();
   } catch (err) {
     console.log(err.message);
   }
 };
-
-// {
-//   method: 'GET',
-//   mode: 'no-cors',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// }
