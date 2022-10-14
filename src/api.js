@@ -5,6 +5,10 @@ export const USER_SIGN_IN = '/api/auth/register';
 export const USER_LOG_IN = '/api/auth/login';
 export const IS_LOGGED_IN = '/api/account';
 
+export const getProductsBySearchUrl = (keywords, offset, limit) => {
+  return `/api/products/search?keywords=${keywords}&offset=${offset}&limit=${limit}`;
+};
+
 export const getProductsByCategory = (category, offset, limit, sortBy) => {
   return `/api/categories/${category}/products?offset=${offset}&limit=${limit}&sortBy=${sortBy}`;
 };

@@ -1,36 +1,57 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
+import { useState } from 'react';
 
-export function SearchField() {
+export function SearchField({ userSearch }) {
+  const [findValue, setFindValue] = useState('');
+
+  const handlerSubmit = (event) => {
+    event.preventDefault();
+    if (findValue.length >= 3) {
+      userSearch(findValue);
+    }
+    setFindValue('');
+  };
+
+  const handlerChange = (event) => {
+    setFindValue(event.target.value);
+  };
+
   return (
-    <Box
-      sx={{
-        margin: '0 10px',
-      }}
-    >
-      <FormControl variant="standard">
-        <Input
-          sx={{
-            border: '1px solid rgba(0, 0, 0, 0.23)',
-            borderRadius: '5px',
-            width: '290px',
-            height: '40px',
-            bgcolor: '#F9FAFB',
-          }}
-          placeholder="Search products by name"
-          disableUnderline={true}
-          id="input-with-icon-adornment"
-          startAdornment={
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-    </Box>
+    <form onSubmit={handlerSubmit}>
+      <Box
+        sx={{
+          margin: '0 10px',
+        }}
+      >
+        <FormControl variant="standard">
+          <Input
+            sx={{
+              border: '1px solid rgba(0, 0, 0, 0.23)',
+              borderRadius: '5px',
+              width: '290px',
+              height: '40px',
+              bgcolor: '#F9FAFB',
+              '&:hover': {
+                borderColor: 'black',
+              },
+            }}
+            value={findValue}
+            onChange={handlerChange}
+            placeholder="Search products by name"
+            disableUnderline={true}
+            id="input-with-icon-adornment"
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </Box>
+    </form>
   );
 }

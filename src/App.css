@@ -73,6 +73,14 @@ footer {
   height: 65px;
 }
 
+.sort-disable {
+  opacity: 0.4;
+}
+
+.MuiAutocomplete-input {
+  padding-left: 30px !important;
+}
+
 .header--register {
   display: flex;
   align-items: center;
