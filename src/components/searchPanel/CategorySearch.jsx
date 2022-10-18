@@ -26,7 +26,7 @@ export function CategorySearch({ userCategory }) {
   };
 
   return (
-    <div>
+    <div className="search-panel--category-wrapper">
       <img
         src={categoriesImg}
         className="search-panel--category-icon"

@@ -81,6 +81,28 @@ footer {
   padding-left: 30px !important;
 }
 
+.search-panel--category-wrapper {
+  position: relative;
+}
+
+.search-panel--category-icon {
+  position: absolute;
+  top: 13px;
+  left: 20px;
+  z-index: 1;
+}
+
+.search-panel--sorting-icon {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  z-index: 1;
+}
+
+#demo-simple-select {
+  padding-right: 8px;
+}
+
 .header--register {
   display: flex;
   align-items: center;
