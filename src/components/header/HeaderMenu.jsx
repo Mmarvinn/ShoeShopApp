@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { deleteJwtToken } from '../../services/localStorage';
 
-export function BasicMenu() {
+export function BasicMenu({ onUserAuth }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,6 +18,7 @@ export function BasicMenu() {
   const logOut = () => {
     deleteJwtToken();
     setAnchorEl(null);
+    onUserAuth(null);
   };
 
   return (

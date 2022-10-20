@@ -11,12 +11,12 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px solid var(--orange-main)',
   boxShadow: 24,
   p: 4,
 };
 
-export const LogInModal = () => {
+export const LogInModal = ({ onUserAuth }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,7 +33,7 @@ export const LogInModal = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <LoginForm closeModal={handleClose} />
+          <LoginForm closeModal={handleClose} onUserAuth={onUserAuth} />
         </Box>
       </Modal>
     </div>

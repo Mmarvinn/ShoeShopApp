@@ -24,7 +24,7 @@ main {
 }
 
 header {
-  width: 99vw;
+  width: 100vw;
   height: 76px;
   background-color: #110f21;
   display: flex;
@@ -40,7 +40,7 @@ header {
 }
 
 footer {
-  width: 99vw;
+  width: 100vw;
   background-color: #f1f1f3;
 }
 
@@ -57,6 +57,14 @@ footer {
 
 .w-100 {
   width: 100%;
+}
+
+.pd-tb-12 {
+  padding: 12px 0;
+}
+
+.fw-700 {
+  font-weight: 700;
 }
 
 .header--register-wrapper {
@@ -197,4 +205,94 @@ footer {
   text-align: left;
   padding: 0 10px;
   font-weight: bold;
+}
+
+.one-product-wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  align-items: center;
+}
+
+.one-product--buttons-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.one-product--content-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.one-product--img-wrapper {
+  width: 420px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+  box-shadow: 0px 4px 14px rgb(121 121 121 / 15%);
+}
+
+.one-product--description-wrapper {
+  width: 350px;
+  min-height: 320px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.one-product--description {
+  width: 100%;
+  max-height: 88px;
+  overflow: hidden;
+}
+
+.one-product--title {
+  width: 100%;
+  max-height: 50px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.one-product-img {
+  width: 400px;
+  height: 300px;
+  object-fit: contain;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+}
+
+.one-product-product-qty {
+  font-weight: 500;
+  padding: 0 10px;
+}
+
+.one-product--inc-dec-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+}
+.one-product--inc-dec-btn:hover {
+  cursor: pointer;
+  background-color: rgb(218, 218, 218);
+}
+
+.one-product--close-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: none;
+  background: none;
+}
+
+.one-product--close-btn:hover {
+  cursor: pointer;
 }

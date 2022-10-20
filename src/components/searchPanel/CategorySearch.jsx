@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { getCategories } from '../../modules/product/getCategories';
 import categoriesImg from '../../images/category-icon.svg';
 
-export function CategorySearch({ userCategory }) {
+export function CategorySearch({ setCategory }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -21,8 +21,7 @@ export function CategorySearch({ userCategory }) {
   }, []);
 
   const handleChange = (event, newValue) => {
-    userCategory(newValue.id);
-    console.log(event.target.value);
+    setCategory(newValue.id);
   };
 
   return (

@@ -5,13 +5,13 @@ import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 
-export function SearchField({ userSearch }) {
+export function SearchField({ onSearch }) {
   const [findValue, setFindValue] = useState('');
 
   const handlerSubmit = (event) => {
     event.preventDefault();
     if (findValue.length >= 3) {
-      userSearch(findValue);
+      onSearch(findValue);
     }
     setFindValue('');
   };
@@ -45,7 +45,7 @@ export function SearchField({ userSearch }) {
             disableUnderline={true}
             id="input-with-icon-adornment"
             startAdornment={
-              <InputAdornment position="start">
+              <InputAdornment position="end">
                 <SearchIcon />
               </InputAdornment>
             }

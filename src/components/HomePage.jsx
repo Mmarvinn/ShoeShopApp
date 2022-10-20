@@ -4,35 +4,39 @@ import Button from '@mui/material/Button';
 import { getProductsApi } from '../modules/product/getProduct';
 import { useEffect, useState } from 'react';
 import { getProductsBySearchApi } from '../modules/product/getProductsBySearch';
+import { SearchNotFound } from './searchPanel/SearchNotFound';
+import { getAllProductsWithoutChoosenCategoryApi } from '../modules/product/getAllProducts';
 
 export const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [selectedSorting, setSelectedSorting] = useState('latest');
   const [isNewCategoryOrSorting, setIsNewCategoryOrSorting] = useState(false);
-  const [findValue, setFindValue] = useState('');
+  const [textOfFind, setTextOfFind] = useState('');
   const [isProductsOfFind, setIsProductsOfFind] = useState(false);
   const [loadMoreFindProducts, setLoadMoreFindProducts] = useState(false);
+  const [isProductsWithoutCategory, setIsProductsWithoutCategory] =
+    useState(true);
   const [page, setPage] = useState(0);
   const productsPerPage = 16;
 
-  const userSearch = (userFindValue) => {
+  const onSearch = (userFindValue) => {
+    setIsProductsWithoutCategory(false);
     setLoadMoreFindProducts(false);
     setIsProductsOfFind(true);
     setPage(0);
-    setFindValue(userFindValue);
+    setTextOfFind(userFindValue);
   };
 
-  console.log(findValue);
-
-  const userCategory = (category) => {
+  const setCategory = (category) => {
+    setIsProductsWithoutCategory(false);
     setIsProductsOfFind(false);
     setPage(0);
     setIsNewCategoryOrSorting(true);
     setSelectedCategory(category);
   };
 
-  const userSort = (sort) => {
+  const onSorting = (sort) => {
     setIsProductsOfFind(false);
     setPage(0);
     setIsNewCategoryOrSorting(true);
@@ -40,6 +44,22 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
+    const getAllProductsWithoutChoosenCategory = async (startPage, sort) => {
+      const fetchedData = await getAllProductsWithoutChoosenCategoryApi(
+        startPage * productsPerPage,
+        productsPerPage,
+        sort
+      );
+
+      setProducts((prevState) => {
+        if ((loadMoreFindProducts, !isNewCategoryOrSorting)) {
+          return [...prevState, ...fetchedData];
+        } else {
+          return [...fetchedData];
+        }
+      });
+    };
+
     const getProducts = async (startPage, category, sort) => {
       const fetchedData = await getProductsApi(
         category,
@@ -47,6 +67,7 @@ export const HomePage = () => {
         productsPerPage,
         sort
       );
+
       setProducts((prevState) => {
         if (isNewCategoryOrSorting) {
           return [...fetchedData];
@@ -62,7 +83,7 @@ export const HomePage = () => {
         startPage * productsPerPage,
         productsPerPage
       );
-      console.log(fetchedData);
+
       setProducts((prevState) => {
         if (loadMoreFindProducts) {
           return [...prevState, ...fetchedData];
@@ -72,12 +93,16 @@ export const HomePage = () => {
       });
     };
 
-    if (isProductsOfFind) {
-      getProductsBySearch(findValue, page);
+    if (isProductsWithoutCategory) {
+      getAllProductsWithoutChoosenCategory(page, selectedSorting);
     } else {
-      getProducts(page, selectedCategory, selectedSorting);
+      if (isProductsOfFind) {
+        getProductsBySearch(textOfFind, page);
+      } else {
+        getProducts(page, selectedCategory, selectedSorting);
+      }
     }
-  }, [findValue, page, selectedCategory, selectedSorting]);
+  }, [textOfFind, page, selectedCategory, selectedSorting]);
 
   const loadProducts = () => {
     setLoadMoreFindProducts(true);
@@ -88,20 +113,26 @@ export const HomePage = () => {
   return (
     <div>
       <SearchPanel
-        userCategory={userCategory}
-        userSort={userSort}
-        userSearch={userSearch}
+        setCategory={setCategory}
+        onSorting={onSorting}
+        onSearch={onSearch}
         sortingDisabled={isProductsOfFind}
       />
-      <ItemList products={products} />
-      <Button
-        onClick={loadProducts}
-        variant="contained"
-        size="large"
-        sx={{ m: '50px', textTransform: 'none' }}
-      >
-        Load more...
-      </Button>
+      {products.length !== 0 ? (
+        <>
+          <ItemList products={products} />
+          <Button
+            onClick={loadProducts}
+            variant="contained"
+            size="large"
+            sx={{ m: '50px', textTransform: 'none' }}
+          >
+            Load more...
+          </Button>
+        </>
+      ) : (
+        <SearchNotFound />
+      )}
     </div>
   );
 };

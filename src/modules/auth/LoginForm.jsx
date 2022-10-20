@@ -18,15 +18,12 @@ import { userLogIn } from '../user/userLogIn';
 import { isLoggedIn } from '../user/isLoggedIn';
 import { setJwtToken } from '../../services/localStorage';
 
-export const LoginForm = ({ closeModal }) => {
+export const LoginForm = ({ closeModal, onUserAuth }) => {
   const [emailValidation, setEmailValidation] = useState(false);
 
   const [passwordValidation, setPasswordValidation] = useState(false);
 
-  // const [loginError, setLoginError] = useState({
-  //   error: false,
-  //   errorMessage: '',
-  // });
+  const [loginError, setLoginError] = useState(false);
 
   const [values, setValues] = useState({
     password: '',
@@ -62,36 +59,20 @@ export const LoginForm = ({ closeModal }) => {
       !passwordValidation &&
       validateLoginInputs(values)
     ) {
-      // try {
       const fetchedData = await userLogIn(data);
 
       if (fetchedData?.error) {
-        console.log(fetchedData.error);
+        console.log(fetchedData);
 
-        // setLoginError((prevState) => ({
-        //   ...prevState,
-        //   error: !prevState.error,
-        //   errorMessage: fetchedData.error,
-        // }));
+        setLoginError(true);
       } else {
         console.log(fetchedData);
+
         setJwtToken(fetchedData.token);
-
-        // const response = await isLoggedIn();
-        // console.log(await response.json());
-
-        // if (response.status === 200) {
-        //   setLoginError((prevState) => ({
-        //     ...prevState,
-        //     error: !prevState.error,
-        //     errorMessage: '',
-        //   }));
+        setLoginError(false);
+        onUserAuth(fetchedData.token);
         closeModal();
-        // }
       }
-      // } catch (err) {
-      //   console.log(err.status);
-      // }
     }
   };
 
@@ -114,10 +95,16 @@ export const LoginForm = ({ closeModal }) => {
           onChange={handleChange('email')}
           onKeyUp={() => setEmailValidation(validateEmail(values))}
         />
-        {emailValidation && (
-          <FormHelperText error={emailValidation} id="my-helper-text">
-            Incorrect email.
+        {loginError ? (
+          <FormHelperText error={true} id="my-helper-text">
+            Incorrect email or password
           </FormHelperText>
+        ) : (
+          emailValidation && (
+            <FormHelperText error={emailValidation} id="my-helper-text">
+              Incorrect email.
+            </FormHelperText>
+          )
         )}
       </Box>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
@@ -151,12 +138,16 @@ export const LoginForm = ({ closeModal }) => {
               label="Password"
             />
           </FormControl>
-          {
+          {loginError ? (
+            <FormHelperText error={true} id="my-helper-text">
+              Incorrect email or password
+            </FormHelperText>
+          ) : (
             <FormHelperText error={passwordValidation} id="my-helper-text">
               Password must contain at least 8 characters, 1 letter, 1 special
               symbol, 1 number
             </FormHelperText>
-          }
+          )}
         </div>
       </Box>
       <input className="login-btn w-100" type="submit" value="Login" />

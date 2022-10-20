@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
 import { Layout } from './components/Layout';
 import { HomePage } from './components/HomePage';
@@ -7,8 +8,11 @@ import { RegisterModal } from './modules/auth/RegisterModal';
 import { LogInModal } from './modules/auth/LogInModal';
 import { ModalAddToFavouriteWhenNotAuth } from './modules/auth/ModalAddToFavouriteWhenNotAuth';
 import { useLocation } from 'react-router-dom';
+import { OneProductInfoModal } from './modules/product/OneProductInfoModal';
+import { getJwtToken } from './services/localStorage';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(getJwtToken());
   const location = useLocation();
 
   const slicePathname = (lastPath) => {
@@ -21,9 +25,13 @@ function App() {
     }
   };
 
+  const onUserAuth = (tokenOrNull) => {
+    setIsLoggedIn(tokenOrNull);
+  };
+
   return (
     <div className="App">
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn} onUserAuth={onUserAuth}>
         <Routes>
           <Route path="/home/*" element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
@@ -31,14 +39,22 @@ function App() {
         <Routes>
           <Route
             path={slicePathname('/register')}
-            element={<RegisterModal />}
+            element={<RegisterModal onUserAuth={onUserAuth} />}
           />
-          <Route path={slicePathname('/login')} element={<LogInModal />} />
+          <Route
+            path={slicePathname('/login')}
+            element={<LogInModal onUserAuth={onUserAuth} />}
+          />
           <Route
             path={slicePathname('/add-to-favourite')}
             element={<ModalAddToFavouriteWhenNotAuth />}
           />
+          <Route
+            path="/home/product/:productId"
+            element={<OneProductInfoModal />}
+          />
         </Routes>
+        <Routes></Routes>
       </Layout>
     </div>
   );

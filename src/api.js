@@ -12,3 +12,15 @@ export const getProductsBySearchUrl = (keywords, offset, limit) => {
 export const getProductsByCategory = (category, offset, limit, sortBy) => {
   return `/api/categories/${category}/products?offset=${offset}&limit=${limit}&sortBy=${sortBy}`;
 };
+
+export const getInfoAboutOneProductApi = (productId) => {
+  return `/api/products/${productId}`;
+};
+
+export const getAllProductsWithoutChoosenCategoryUrl = (
+  offset,
+  limit,
+  sortBy
+) => {
+  return `/api/products?offset=${offset}&limit=${limit}&sortBy=${sortBy}`;
+};

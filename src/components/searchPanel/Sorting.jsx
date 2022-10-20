@@ -6,12 +6,12 @@ import Select from '@mui/material/Select';
 import { useState } from 'react';
 import sortingIcon from '../../images/sorting-icon.svg';
 
-export function Sorting({ userSort, sortingDisabled }) {
+export function Sorting({ onSorting, sortingDisabled }) {
   const [sorting, setSorting] = useState('');
 
   const handleChange = (event) => {
     setSorting(event.target.value);
-    userSort(event.target.value);
+    onSorting(event.target.value);
   };
 
   return (

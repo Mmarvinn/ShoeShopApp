@@ -3,16 +3,16 @@ import { CategorySearch } from './CategorySearch';
 import { Sorting } from './Sorting';
 
 export const SearchPanel = ({
-  userCategory,
-  userSort,
-  userSearch,
+  setCategory,
+  onSorting,
+  onSearch,
   sortingDisabled,
 }) => {
   return (
     <div className="search-panel">
-      <SearchField userSearch={userSearch} />
-      <CategorySearch userCategory={userCategory} />
-      <Sorting userSort={userSort} sortingDisabled={sortingDisabled} />
+      <SearchField onSearch={onSearch} />
+      <CategorySearch setCategory={setCategory} />
+      <Sorting onSorting={onSorting} sortingDisabled={sortingDisabled} />
     </div>
   );
 };

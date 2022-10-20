@@ -19,7 +19,7 @@ import {
 } from './validationInputs';
 import { setJwtToken } from '../../services/localStorage';
 
-export const RegisterForm = ({ closeModal }) => {
+export const RegisterForm = ({ closeModal, onUserAuth }) => {
   const [fullNameValidation, setFullNameValidation] = useState(false);
 
   const [phoneValidation, setPhoneValidation] = useState(false);
@@ -70,7 +70,6 @@ export const RegisterForm = ({ closeModal }) => {
       !passwordValidation &&
       validateRegisterInputs(values)
     ) {
-      // try {
       const fetchedData = await userSignIn(data);
       if (fetchedData?.error) {
         console.log(fetchedData);
@@ -89,11 +88,9 @@ export const RegisterForm = ({ closeModal }) => {
         }));
         console.log(fetchedData);
         setJwtToken(fetchedData.token);
+        onUserAuth(fetchedData.token);
         closeModal();
       }
-      // } catch (err) {
-      //   console.log(err.status);
-      // }
     }
   };
 
