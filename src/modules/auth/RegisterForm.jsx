@@ -16,18 +16,14 @@ import {
   validateEmail,
   validatePhone,
   validateRegisterInputs,
-} from './validationInputs';
+} from '../../services/validationInputs';
 import { setJwtToken } from '../../services/localStorage';
 
-export const RegisterForm = ({ closeModal, onUserAuth }) => {
+export const RegisterForm = ({ closeModal, toggleUserLogin }) => {
   const [fullNameValidation, setFullNameValidation] = useState(false);
-
   const [phoneValidation, setPhoneValidation] = useState(false);
-
   const [emailValidation, setEmailValidation] = useState(false);
-
   const [passwordValidation, setPasswordValidation] = useState(false);
-
   const [signInError, setSignInError] = useState({
     error: false,
     errorStatus: null,
@@ -88,7 +84,7 @@ export const RegisterForm = ({ closeModal, onUserAuth }) => {
         }));
         console.log(fetchedData);
         setJwtToken(fetchedData.token);
-        onUserAuth(fetchedData.token);
+        toggleUserLogin(fetchedData);
         closeModal();
       }
     }
@@ -184,7 +180,9 @@ export const RegisterForm = ({ closeModal, onUserAuth }) => {
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange('password')}
-              onKeyUp={() => setPasswordValidation(validatePassword(values))}
+              onKeyUp={() =>
+                setPasswordValidation(validatePassword(values.password))
+              }
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

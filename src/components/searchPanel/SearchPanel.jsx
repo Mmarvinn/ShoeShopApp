@@ -7,11 +7,15 @@ export const SearchPanel = ({
   onSorting,
   onSearch,
   sortingDisabled,
+  setIsLoadAllProducts,
 }) => {
   return (
     <div className="search-panel">
       <SearchField onSearch={onSearch} />
-      <CategorySearch setCategory={setCategory} />
+      <CategorySearch
+        setCategory={setCategory}
+        setIsLoadAllProducts={setIsLoadAllProducts}
+      />
       <Sorting onSorting={onSorting} sortingDisabled={sortingDisabled} />
     </div>
   );

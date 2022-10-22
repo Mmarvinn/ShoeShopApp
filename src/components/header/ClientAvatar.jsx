@@ -23,13 +23,23 @@ import Stack from '@mui/material/Stack';
 // }
 
 function stringAvatar(name) {
-  return {
-    sx: {
-      bgcolor: 'white',
-      color: 'black',
-    },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-  };
+  if (name.includes(' ')) {
+    return {
+      sx: {
+        bgcolor: 'white',
+        color: 'black',
+      },
+      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+  } else {
+    return {
+      sx: {
+        bgcolor: 'white',
+        color: 'black',
+      },
+      children: `${name.split(' ')[0][0]}`,
+    };
+  }
 }
 
 export function ClientAvatar({ clientFullName }) {

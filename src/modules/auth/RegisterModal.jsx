@@ -20,7 +20,7 @@ const style = {
   p: 4,
 };
 
-export const RegisterModal = ({ onUserAuth }) => {
+export const RegisterModal = ({ toggleUserLogin }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -36,7 +36,10 @@ export const RegisterModal = ({ onUserAuth }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <RegisterForm closeModal={handleClose} onUserAuth={onUserAuth} />
+          <RegisterForm
+            closeModal={handleClose}
+            toggleUserLogin={toggleUserLogin}
+          />
           {/* <BelowModal /> */}
         </Box>
       </Modal>

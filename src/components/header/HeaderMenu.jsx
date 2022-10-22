@@ -4,8 +4,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { deleteJwtToken } from '../../services/localStorage';
+import { Link } from 'react-router-dom';
 
-export function BasicMenu({ onUserAuth }) {
+export function HeaderMenu({ toggleUserLogin, userEmail, userFullName }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -15,10 +16,14 @@ export function BasicMenu({ onUserAuth }) {
     setAnchorEl(null);
   };
 
+  const handleClickSetting = () => {
+    setAnchorEl(null);
+  };
+
   const logOut = () => {
     deleteJwtToken();
     setAnchorEl(null);
-    onUserAuth(null);
+    toggleUserLogin(null);
   };
 
   return (
@@ -48,12 +53,12 @@ export function BasicMenu({ onUserAuth }) {
           divider={true}
           onClick={handleClose}
         >
-          <span className="w-100">Tony Stark</span>
-          <span className="header-menu-item-email w-100">
-            tony.stark@gmail.com
-          </span>
+          <span className="w-100">{userFullName}</span>
+          <span className="header-menu-item-email w-100">{userEmail}</span>
         </MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
+        <Link to="/settings" style={{ color: 'black' }}>
+          <MenuItem onClick={handleClickSetting}>Settings</MenuItem>
+        </Link>
         <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </div>

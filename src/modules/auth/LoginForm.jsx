@@ -13,18 +13,14 @@ import {
   validatePassword,
   validateEmail,
   validateLoginInputs,
-} from './validationInputs';
+} from '../../services/validationInputs';
 import { userLogIn } from '../user/userLogIn';
-import { isLoggedIn } from '../user/isLoggedIn';
 import { setJwtToken } from '../../services/localStorage';
 
-export const LoginForm = ({ closeModal, onUserAuth }) => {
+export const LoginForm = ({ closeModal, toggleUserLogin }) => {
   const [emailValidation, setEmailValidation] = useState(false);
-
   const [passwordValidation, setPasswordValidation] = useState(false);
-
   const [loginError, setLoginError] = useState(false);
-
   const [values, setValues] = useState({
     password: '',
     email: '',
@@ -66,11 +62,9 @@ export const LoginForm = ({ closeModal, onUserAuth }) => {
 
         setLoginError(true);
       } else {
-        console.log(fetchedData);
-
         setJwtToken(fetchedData.token);
         setLoginError(false);
-        onUserAuth(fetchedData.token);
+        toggleUserLogin(fetchedData);
         closeModal();
       }
     }
@@ -122,7 +116,9 @@ export const LoginForm = ({ closeModal, onUserAuth }) => {
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
               onChange={handleChange('password')}
-              onKeyUp={() => setPasswordValidation(validatePassword(values))}
+              onKeyUp={() =>
+                setPasswordValidation(validatePassword(values.password))
+              }
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

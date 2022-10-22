@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export const LogInModal = ({ onUserAuth }) => {
+export const LogInModal = ({ toggleUserLogin }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,7 +33,10 @@ export const LogInModal = ({ onUserAuth }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <LoginForm closeModal={handleClose} onUserAuth={onUserAuth} />
+          <LoginForm
+            closeModal={handleClose}
+            toggleUserLogin={toggleUserLogin}
+          />
         </Box>
       </Modal>
     </div>

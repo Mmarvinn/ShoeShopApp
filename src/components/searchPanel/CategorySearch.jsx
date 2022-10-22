@@ -3,8 +3,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useState, useEffect } from 'react';
 import { getCategories } from '../../modules/product/getCategories';
 import categoriesImg from '../../images/category-icon.svg';
+import ClearIcon from '@mui/icons-material/Clear';
 
-export function CategorySearch({ setCategory }) {
+export function CategorySearch({ setCategory, setIsLoadAllProducts }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -24,6 +25,10 @@ export function CategorySearch({ setCategory }) {
     setCategory(newValue.id);
   };
 
+  const handleClear = () => {
+    setIsLoadAllProducts(true);
+  };
+  // let bool = false;
   return (
     <div className="search-panel--category-wrapper">
       <img
@@ -33,8 +38,10 @@ export function CategorySearch({ setCategory }) {
       />
       <Autocomplete
         disablePortal
+        // defaultValue
         options={categories}
         onChange={handleChange}
+        clearIcon={<ClearIcon onClick={handleClear} fontSize="small" />}
         style={{
           borderRadius: '5px',
           width: '290px',

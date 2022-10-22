@@ -1,6 +1,6 @@
-export const validatePassword = (values) => {
+export const validatePassword = (value) => {
   const regEx = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-  return !regEx.test(values.password);
+  return !regEx.test(value);
 };
 
 export const validateFullName = (values) => {
@@ -36,6 +36,14 @@ export const validateRegisterInputs = (values) => {
 
 export const validateLoginInputs = (values) => {
   if (values.email === '' || values.password === '') {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export const validateUserMainInfoInputs = (values) => {
+  if (values.email === '' || values.fullName === '' || values.phone === '') {
     return false;
   } else {
     return true;

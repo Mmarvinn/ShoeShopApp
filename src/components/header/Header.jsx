@@ -2,13 +2,13 @@ import { HeaderLogo } from './HeaderLogo';
 import { HeaderOnLogin } from './HeaderOnLogin';
 import { HeaderRegister } from './HeaderRegister';
 
-export const Header = ({ isLoggedIn, onUserAuth }) => {
+export const Header = ({ user, toggleUserLogin }) => {
   return (
     <header>
       <div className="header">
         <HeaderLogo />
-        {isLoggedIn ? (
-          <HeaderOnLogin onUserAuth={onUserAuth} />
+        {user ? (
+          <HeaderOnLogin toggleUserLogin={toggleUserLogin} user={user} />
         ) : (
           <HeaderRegister />
         )}

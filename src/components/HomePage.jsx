@@ -15,13 +15,12 @@ export const HomePage = () => {
   const [textOfFind, setTextOfFind] = useState('');
   const [isProductsOfFind, setIsProductsOfFind] = useState(false);
   const [loadMoreFindProducts, setLoadMoreFindProducts] = useState(false);
-  const [isProductsWithoutCategory, setIsProductsWithoutCategory] =
-    useState(true);
   const [page, setPage] = useState(0);
+  const [isLoadAllProducts, setIsLoadAllProducts] = useState(true);
   const productsPerPage = 16;
 
   const onSearch = (userFindValue) => {
-    setIsProductsWithoutCategory(false);
+    setIsLoadAllProducts(false);
     setLoadMoreFindProducts(false);
     setIsProductsOfFind(true);
     setPage(0);
@@ -29,7 +28,7 @@ export const HomePage = () => {
   };
 
   const setCategory = (category) => {
-    setIsProductsWithoutCategory(false);
+    setIsLoadAllProducts(false);
     setIsProductsOfFind(false);
     setPage(0);
     setIsNewCategoryOrSorting(true);
@@ -93,7 +92,7 @@ export const HomePage = () => {
       });
     };
 
-    if (isProductsWithoutCategory) {
+    if (isLoadAllProducts) {
       getAllProductsWithoutChoosenCategory(page, selectedSorting);
     } else {
       if (isProductsOfFind) {
@@ -102,7 +101,7 @@ export const HomePage = () => {
         getProducts(page, selectedCategory, selectedSorting);
       }
     }
-  }, [textOfFind, page, selectedCategory, selectedSorting]);
+  }, [textOfFind, page, selectedCategory, selectedSorting, isLoadAllProducts]);
 
   const loadProducts = () => {
     setLoadMoreFindProducts(true);
@@ -117,6 +116,7 @@ export const HomePage = () => {
         onSorting={onSorting}
         onSearch={onSearch}
         sortingDisabled={isProductsOfFind}
+        setIsLoadAllProducts={setIsLoadAllProducts}
       />
       {products.length !== 0 ? (
         <>
