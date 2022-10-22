@@ -5,13 +5,9 @@ export const getAllProductsWithoutChoosenCategoryApi = async (
   limit,
   sortBy
 ) => {
-  try {
-    const response = await fetch(
-      getAllProductsWithoutChoosenCategoryUrl(offset, limit, sortBy)
-    );
+  const response = await fetch(
+    getAllProductsWithoutChoosenCategoryUrl(offset, limit, sortBy)
+  );
 
-    return await response.json();
-  } catch (err) {
-    console.log(err.message);
-  }
+  return await response.json();
 };

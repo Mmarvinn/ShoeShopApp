@@ -15,7 +15,6 @@ const getUserName = (user) => {
 };
 
 export const HeaderOnLogin = ({ toggleUserLogin, user }) => {
-  console.log(user);
   const userName = getUserName(user);
 
   return (

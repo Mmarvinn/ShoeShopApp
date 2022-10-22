@@ -6,123 +6,169 @@ import { useEffect, useState } from 'react';
 import { getProductsBySearchApi } from '../modules/product/getProductsBySearch';
 import { SearchNotFound } from './searchPanel/SearchNotFound';
 import { getAllProductsWithoutChoosenCategoryApi } from '../modules/product/getAllProducts';
+import { useMakeRequest } from '../hooks/useMakeRequest';
 
 export const HomePage = () => {
+  const { request, loading, error } = useMakeRequest();
   const [products, setProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSorting, setSelectedSorting] = useState('latest');
-  const [isNewCategoryOrSorting, setIsNewCategoryOrSorting] = useState(false);
   const [textOfFind, setTextOfFind] = useState('');
-  const [isProductsOfFind, setIsProductsOfFind] = useState(false);
-  const [loadMoreFindProducts, setLoadMoreFindProducts] = useState(false);
   const [page, setPage] = useState(0);
-  const [isLoadAllProducts, setIsLoadAllProducts] = useState(true);
   const productsPerPage = 16;
+  const offset = page * productsPerPage;
 
-  const onSearch = (userFindValue) => {
-    setIsLoadAllProducts(false);
-    setLoadMoreFindProducts(false);
-    setIsProductsOfFind(true);
-    setPage(0);
+  const onSearch = async (userFindValue) => {
     setTextOfFind(userFindValue);
+
+    if (userFindValue.length >= 3) {
+      setSelectedCategory(null);
+      setPage(0);
+      const newProducts = await request(
+        getProductsBySearchApi,
+        userFindValue,
+        0,
+        productsPerPage
+      );
+      setProducts(newProducts);
+    }
+
+    if (userFindValue.length === 0) {
+      setPage(0);
+      const products = await request(
+        getAllProductsWithoutChoosenCategoryApi,
+        0,
+        productsPerPage,
+        selectedSorting
+      );
+      setProducts(products);
+    }
   };
 
-  const setCategory = (category) => {
-    setIsLoadAllProducts(false);
-    setIsProductsOfFind(false);
+  const handleClearCategory = async () => {
+    setSelectedCategory(null);
     setPage(0);
-    setIsNewCategoryOrSorting(true);
+    const products = await request(
+      getAllProductsWithoutChoosenCategoryApi,
+      0,
+      productsPerPage,
+      selectedSorting
+    );
+    setProducts(products);
+  };
+
+  const setCategory = async (category) => {
+    setTextOfFind('');
+    setPage(0);
     setSelectedCategory(category);
+    console.log(`func setCategory, page now: ${page}`);
+    const newProducts = await request(
+      getProductsApi,
+      category,
+      0,
+      productsPerPage,
+      selectedSorting
+    );
+    setProducts(newProducts);
   };
 
-  const onSorting = (sort) => {
-    setIsProductsOfFind(false);
+  const onSorting = async (sort) => {
     setPage(0);
-    setIsNewCategoryOrSorting(true);
     setSelectedSorting(sort);
+    if (selectedCategory) {
+      const newProducts = await request(
+        getProductsApi,
+        selectedCategory,
+        0,
+        productsPerPage,
+        sort
+      );
+      setProducts(newProducts);
+    } else {
+      const products = await request(
+        getAllProductsWithoutChoosenCategoryApi,
+        0,
+        productsPerPage,
+        sort
+      );
+      setProducts(products);
+    }
+  };
+
+  const loadMore = async () => {
+    let newProducts = null;
+    const newPage = page + 1;
+    const newOffset = newPage * productsPerPage;
+    setPage(newPage);
+    switch (true) {
+      case !!selectedCategory: {
+        newProducts = await request(
+          getProductsApi,
+          selectedCategory,
+          newOffset,
+          productsPerPage,
+          selectedSorting
+        );
+        break;
+      }
+
+      case !!textOfFind: {
+        console.log(textOfFind);
+        newProducts = await request(
+          getProductsBySearchApi,
+          textOfFind,
+          newOffset,
+          productsPerPage
+        );
+        break;
+      }
+
+      default: {
+        newProducts = await request(
+          getAllProductsWithoutChoosenCategoryApi,
+          newOffset,
+          productsPerPage,
+          selectedSorting
+        );
+      }
+    }
+
+    setProducts((prevState) => {
+      return [...prevState, ...newProducts];
+    });
   };
 
   useEffect(() => {
-    const getAllProductsWithoutChoosenCategory = async (startPage, sort) => {
-      const fetchedData = await getAllProductsWithoutChoosenCategoryApi(
-        startPage * productsPerPage,
+    const getInitialAllProducts = async () => {
+      const products = await request(
+        getAllProductsWithoutChoosenCategoryApi,
+        offset,
         productsPerPage,
-        sort
+        selectedSorting
       );
-
-      setProducts((prevState) => {
-        if ((loadMoreFindProducts, !isNewCategoryOrSorting)) {
-          return [...prevState, ...fetchedData];
-        } else {
-          return [...fetchedData];
-        }
-      });
+      setProducts(products);
     };
 
-    const getProducts = async (startPage, category, sort) => {
-      const fetchedData = await getProductsApi(
-        category,
-        startPage * productsPerPage,
-        productsPerPage,
-        sort
-      );
+    getInitialAllProducts();
+  }, []);
 
-      setProducts((prevState) => {
-        if (isNewCategoryOrSorting) {
-          return [...fetchedData];
-        } else {
-          return [...prevState, ...fetchedData];
-        }
-      });
-    };
-
-    const getProductsBySearch = async (keywords, startPage) => {
-      const fetchedData = await getProductsBySearchApi(
-        keywords,
-        startPage * productsPerPage,
-        productsPerPage
-      );
-
-      setProducts((prevState) => {
-        if (loadMoreFindProducts) {
-          return [...prevState, ...fetchedData];
-        } else {
-          return [...fetchedData];
-        }
-      });
-    };
-
-    if (isLoadAllProducts) {
-      getAllProductsWithoutChoosenCategory(page, selectedSorting);
-    } else {
-      if (isProductsOfFind) {
-        getProductsBySearch(textOfFind, page);
-      } else {
-        getProducts(page, selectedCategory, selectedSorting);
-      }
-    }
-  }, [textOfFind, page, selectedCategory, selectedSorting, isLoadAllProducts]);
-
-  const loadProducts = () => {
-    setLoadMoreFindProducts(true);
-    setIsNewCategoryOrSorting(false);
-    setPage((prevState) => prevState + 1);
-  };
-
+  console.log(loading, error);
   return (
     <div>
       <SearchPanel
+        textOfFind={textOfFind}
+        selectedCategory={selectedCategory}
         setCategory={setCategory}
         onSorting={onSorting}
         onSearch={onSearch}
-        sortingDisabled={isProductsOfFind}
-        setIsLoadAllProducts={setIsLoadAllProducts}
+        sortingDisabled={!!textOfFind}
+        handleClearCategory={handleClearCategory}
       />
       {products.length !== 0 ? (
         <>
           <ItemList products={products} />
           <Button
-            onClick={loadProducts}
+            onClick={loadMore}
             variant="contained"
             size="large"
             sx={{ m: '50px', textTransform: 'none' }}

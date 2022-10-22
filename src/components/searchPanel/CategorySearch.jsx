@@ -3,9 +3,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useState, useEffect } from 'react';
 import { getCategories } from '../../modules/product/getCategories';
 import categoriesImg from '../../images/category-icon.svg';
-import ClearIcon from '@mui/icons-material/Clear';
 
-export function CategorySearch({ setCategory, setIsLoadAllProducts }) {
+export function CategorySearch({ setCategory, handleClear, selectedCategory }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -22,13 +21,13 @@ export function CategorySearch({ setCategory, setIsLoadAllProducts }) {
   }, []);
 
   const handleChange = (event, newValue) => {
-    setCategory(newValue.id);
+    if (newValue) {
+      setCategory(newValue.id);
+    } else {
+      handleClear();
+    }
   };
 
-  const handleClear = () => {
-    setIsLoadAllProducts(true);
-  };
-  // let bool = false;
   return (
     <div className="search-panel--category-wrapper">
       <img
@@ -37,24 +36,26 @@ export function CategorySearch({ setCategory, setIsLoadAllProducts }) {
         alt="category icon"
       />
       <Autocomplete
-        disablePortal
-        // defaultValue
+        clearOnBlur
+        clearOnEscape
+        value={categories.find((el) => el.id === selectedCategory) || null}
         options={categories}
         onChange={handleChange}
-        clearIcon={<ClearIcon onClick={handleClear} fontSize="small" />}
         style={{
           borderRadius: '5px',
           width: '290px',
           margin: '0 10px',
         }}
-        renderInput={(categories) => (
-          <TextField
-            {...categories}
-            sx={{ bgcolor: '#F9FAFB' }}
-            placeholder="Choose category"
-            size="small"
-          />
-        )}
+        renderInput={(props) => {
+          return (
+            <TextField
+              {...props}
+              sx={{ bgcolor: '#F9FAFB' }}
+              placeholder="Choose category"
+              size="small"
+            />
+          );
+        }}
       />
     </div>
   );

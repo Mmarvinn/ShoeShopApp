@@ -3,22 +3,32 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FormHelperText } from '@mui/material';
 
-export function SearchField({ onSearch }) {
+export function SearchField({ onSearch, value }) {
   const [findValue, setFindValue] = useState('');
+  const [submittedValue, setSubmittedValue] = useState('');
+
+  console.log(value, findValue);
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    if (findValue.length >= 3) {
-      onSearch(findValue);
-    }
-    setFindValue('');
+    onSearch(findValue);
+    setSubmittedValue(findValue);
   };
 
   const handlerChange = (event) => {
     setFindValue(event.target.value);
+    console.log(event.target.value);
   };
+
+  useEffect(() => {
+    if (submittedValue !== value) {
+      setSubmittedValue(value);
+      setFindValue(value);
+    }
+  }, [value, submittedValue]);
 
   return (
     <form onSubmit={handlerSubmit}>
