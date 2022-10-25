@@ -10,8 +10,6 @@ export function SearchField({ onSearch, value }) {
   const [findValue, setFindValue] = useState('');
   const [submittedValue, setSubmittedValue] = useState('');
 
-  console.log(value, findValue);
-
   const handlerSubmit = (event) => {
     event.preventDefault();
     onSearch(findValue);
@@ -20,7 +18,6 @@ export function SearchField({ onSearch, value }) {
 
   const handlerChange = (event) => {
     setFindValue(event.target.value);
-    console.log(event.target.value);
   };
 
   useEffect(() => {

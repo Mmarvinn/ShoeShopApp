@@ -24,3 +24,11 @@ export const getAllProductsWithoutChoosenCategoryUrl = (
 ) => {
   return `/api/products?offset=${offset}&limit=${limit}&sortBy=${sortBy}`;
 };
+
+export const getFavouritesUrl = (offset, limit) => {
+  return `/api/products/favorites?offset=${offset}&limit=${limit}`;
+};
+
+export const favouriteUrl = (productId) => {
+  return `/api/products/${productId}/favorite`;
+};

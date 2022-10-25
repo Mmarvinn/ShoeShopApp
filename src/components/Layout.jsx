@@ -1,10 +1,10 @@
 import { Header } from './header/Header';
 import { Footer } from './Footer';
 
-export const Layout = ({ children, user, toggleUserLogin }) => {
+export const Layout = ({ children }) => {
   return (
     <>
-      <Header user={user} toggleUserLogin={toggleUserLogin} />
+      <Header />
       <main className="main">{children}</main>
       <Footer />
     </>

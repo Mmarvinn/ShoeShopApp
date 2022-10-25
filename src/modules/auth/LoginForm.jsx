@@ -14,10 +14,11 @@ import {
   validateEmail,
   validateLoginInputs,
 } from '../../services/validationInputs';
-import { userLogIn } from '../user/userLogIn';
-import { setJwtToken } from '../../services/localStorage';
+import { useDispatch } from 'react-redux';
+import { logInUser } from '../user/redux/userSlice';
 
-export const LoginForm = ({ closeModal, toggleUserLogin }) => {
+export const LoginForm = ({ closeModal }) => {
+  const dispatch = useDispatch();
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState(false);
   const [loginError, setLoginError] = useState(false);
@@ -55,18 +56,15 @@ export const LoginForm = ({ closeModal, toggleUserLogin }) => {
       !passwordValidation &&
       validateLoginInputs(values)
     ) {
-      const fetchedData = await userLogIn(data);
-
-      if (fetchedData?.error) {
-        console.log(fetchedData);
-
-        setLoginError(true);
-      } else {
-        setJwtToken(fetchedData.token);
-        setLoginError(false);
-        toggleUserLogin(fetchedData);
-        closeModal();
-      }
+      dispatch(logInUser(data))
+        .unwrap()
+        .then(() => {
+          closeModal();
+          setLoginError(false);
+        })
+        .catch((err) => {
+          setLoginError(true);
+        });
     }
   };
 

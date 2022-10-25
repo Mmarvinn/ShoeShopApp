@@ -3,10 +3,13 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { deleteJwtToken } from '../../services/localStorage';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../modules/user/redux/userSlice';
 
-export function HeaderMenu({ toggleUserLogin, userEmail, userFullName }) {
+export function HeaderMenu({ userEmail, userFullName }) {
+  const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -21,9 +24,8 @@ export function HeaderMenu({ toggleUserLogin, userEmail, userFullName }) {
   };
 
   const logOut = () => {
-    deleteJwtToken();
     setAnchorEl(null);
-    toggleUserLogin(null);
+    dispatch(logout());
   };
 
   return (

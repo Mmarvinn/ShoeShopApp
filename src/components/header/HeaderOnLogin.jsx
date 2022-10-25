@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { ClientAvatar } from './ClientAvatar';
 import { HeaderIcons } from './HeaderIcons';
 import { HeaderMenu } from './HeaderMenu';
@@ -14,7 +15,15 @@ const getUserName = (user) => {
   return userName;
 };
 
-export const HeaderOnLogin = ({ toggleUserLogin, user }) => {
+const styleOnClientAvatar = {
+  marginLeft: '15px',
+  border: '2px solid',
+  borderColor: 'var(--orange-main)',
+  borderRadius: '50%',
+};
+
+export const HeaderOnLogin = () => {
+  const user = useSelector((state) => state.user.data);
   const userName = getUserName(user);
 
   return (
@@ -22,12 +31,12 @@ export const HeaderOnLogin = ({ toggleUserLogin, user }) => {
       <HeaderIcons />
       <div className="header-on-login--client">
         <p>Welcome, {userName}</p>
-        <ClientAvatar clientFullName={user.fullName} />
-        <HeaderMenu
-          toggleUserLogin={toggleUserLogin}
-          userFullName={user.fullName}
-          userEmail={user.email}
+        <ClientAvatar
+          clientFullName={user.fullName}
+          style={styleOnClientAvatar}
+          bgcolor="white"
         />
+        <HeaderMenu userFullName={user.fullName} userEmail={user.email} />
       </div>
     </div>
   );

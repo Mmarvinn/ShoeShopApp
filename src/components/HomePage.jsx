@@ -152,7 +152,6 @@ export const HomePage = () => {
     getInitialAllProducts();
   }, []);
 
-  console.log(loading, error);
   return (
     <div>
       <SearchPanel

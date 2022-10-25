@@ -1,6 +1,27 @@
 import { AddToFavoriteButton } from './AddToFavourite';
+import { useState } from 'react';
+import { favouriteApi } from '../modules/user/addToFavourite';
+import { useMakeRequest } from '../hooks/useMakeRequest';
 
 export const Item = ({ data }) => {
+  const { request, error, loading } = useMakeRequest();
+  const [toggleLike, setToggleLike] = useState(data.favorite);
+
+  const isFavourite = async (productId) => {
+    if (toggleLike) {
+      const deleteFavourite = await request(favouriteApi, productId, 'DELETE');
+      setToggleLike(!deleteFavourite.success);
+    } else {
+      const addFavourite = await request(favouriteApi, productId, 'POST');
+      setToggleLike(addFavourite.success);
+    }
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    isFavourite(data.id);
+  };
+
   return (
     <div className="product">
       <div className="product--img-wrapper">
@@ -8,7 +29,7 @@ export const Item = ({ data }) => {
           <img
             className="product--product-img"
             src={data.picture}
-            alt="product picture"
+            alt="product"
           />
         </div>
         <div
@@ -19,7 +40,10 @@ export const Item = ({ data }) => {
             color: 'white',
           }}
         >
-          <AddToFavoriteButton />
+          <AddToFavoriteButton
+            favourite={toggleLike}
+            handleClick={handleClick}
+          />
         </div>
       </div>
       <div className="product-info-wrapper">

@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { FormHelperText } from '@mui/material';
-import { userSignIn } from '../user/userSignIn';
+import { signInUser } from '../user/redux/userSlice';
 import {
   validatePassword,
   validateFullName,
@@ -17,9 +17,10 @@ import {
   validatePhone,
   validateRegisterInputs,
 } from '../../services/validationInputs';
-import { setJwtToken } from '../../services/localStorage';
+import { useDispatch } from 'react-redux';
 
-export const RegisterForm = ({ closeModal, toggleUserLogin }) => {
+export const RegisterForm = ({ closeModal }) => {
+  const dispatch = useDispatch();
   const [fullNameValidation, setFullNameValidation] = useState(false);
   const [phoneValidation, setPhoneValidation] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
@@ -66,27 +67,17 @@ export const RegisterForm = ({ closeModal, toggleUserLogin }) => {
       !passwordValidation &&
       validateRegisterInputs(values)
     ) {
-      const fetchedData = await userSignIn(data);
-      if (fetchedData?.error) {
-        console.log(fetchedData);
-        setSignInError((prevState) => ({
-          ...prevState,
-          error: true,
-          errorStatus: fetchedData.status,
-          errorMessage: fetchedData.error,
-        }));
-      } else {
-        setSignInError((prevState) => ({
-          ...prevState,
-          error: false,
-          errorStatus: null,
-          errorMessage: '',
-        }));
-        console.log(fetchedData);
-        setJwtToken(fetchedData.token);
-        toggleUserLogin(fetchedData);
-        closeModal();
-      }
+      dispatch(signInUser(data))
+        .unwrap()
+        .then(() => closeModal())
+        .catch((err) =>
+          setSignInError((prevState) => ({
+            ...prevState,
+            error: true,
+            errorStatus: err.status,
+            errorMessage: err.error,
+          }))
+        );
     }
   };
 

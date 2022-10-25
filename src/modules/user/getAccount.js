@@ -1,10 +1,10 @@
 import { GET_ACCOUNT } from '../../api';
-import { privateRequestHeaders } from './privateRequest';
+import { privateRequestHeadersContentType } from './privateRequest';
 
 export const getAccount = async () => {
   const response = await fetch(GET_ACCOUNT, {
     method: 'GET',
-    headers: privateRequestHeaders(),
+    headers: privateRequestHeadersContentType(),
   });
 
   return response.json();

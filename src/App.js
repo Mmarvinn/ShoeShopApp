@@ -8,11 +8,11 @@ import { LogInModal } from './modules/auth/LogInModal';
 import { ModalAddToFavouriteWhenNotAuth } from './modules/auth/ModalAddToFavouriteWhenNotAuth';
 import { useLocation } from 'react-router-dom';
 import { OneProductInfoModal } from './modules/product/OneProductInfoModal';
-import { UserSettingsPage } from './components/UserSettingsPage';
 import { useUserLogin } from './modules/auth/hooks/useUserLogin';
+import { UserSettings } from './modules/user/UserSettings';
+import { OrderDetailsModal } from './modules/user/OrderDetailsModal';
 
 function App() {
-  const [user, setUser] = useUserLogin();
   const location = useLocation();
 
   const slicePathname = (lastPath) => {
@@ -25,27 +25,22 @@ function App() {
     }
   };
 
-  const toggleUserLogin = (userOrNull) => {
-    setUser(userOrNull);
-  };
+  useUserLogin();
 
   return (
     <div className="App">
-      <Layout user={user} toggleUserLogin={toggleUserLogin}>
+      <Layout>
         <Routes>
           <Route path="/home/*" element={<HomePage />} />
-          <Route path="/settings" element={<UserSettingsPage />} />
+          <Route path="/settings/*" element={<UserSettings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Routes>
           <Route
             path={slicePathname('/register')}
-            element={<RegisterModal toggleUserLogin={toggleUserLogin} />}
+            element={<RegisterModal />}
           />
-          <Route
-            path={slicePathname('/login')}
-            element={<LogInModal toggleUserLogin={toggleUserLogin} />}
-          />
+          <Route path={slicePathname('/login')} element={<LogInModal />} />
           <Route
             path={slicePathname('/add-to-favourite')}
             element={<ModalAddToFavouriteWhenNotAuth />}
@@ -53,6 +48,10 @@ function App() {
           <Route
             path="/home/product/:productId"
             element={<OneProductInfoModal />}
+          />
+          <Route
+            path="/settings/order-details/:orderId"
+            element={<OrderDetailsModal />}
           />
         </Routes>
         <Routes></Routes>

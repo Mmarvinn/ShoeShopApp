@@ -2,14 +2,8 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useState } from 'react';
 
-export function AddToFavoriteButton() {
-  const [toggleLike, setToggleLike] = useState(false);
-  const handleClick = () => {
-    setToggleLike(!toggleLike);
-  };
-
+export function AddToFavoriteButton({ favourite, handleClick }) {
   return (
     <Stack
       direction="row"
@@ -25,10 +19,10 @@ export function AddToFavoriteButton() {
       }}
     >
       <IconButton onClick={handleClick} color="inherit">
-        {toggleLike ? (
+        {favourite ? (
           <FavoriteIcon
             style={{
-              color: 'red',
+              color: 'var(--orange-main)',
               width: '24px',
               height: '24px',
             }}

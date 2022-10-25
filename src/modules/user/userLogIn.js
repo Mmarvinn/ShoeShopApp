@@ -9,5 +9,5 @@ export const userLogIn = async (data) => {
     body: JSON.stringify(data),
   });
 
-  return await response.json();
+  return response;
 };

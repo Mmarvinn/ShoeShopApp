@@ -8,6 +8,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Button from '@mui/material/Button';
 import { FormHelperText } from '@mui/material';
 import {
   validatePassword,
@@ -15,9 +16,9 @@ import {
   validateEmail,
   validatePhone,
   validateUserMainInfoInputs,
-} from '../services/validationInputs';
+} from '../../services/validationInputs';
 
-export const UserSettingsPage = () => {
+export const UserEditAccount = () => {
   const [fullNameValidation, setFullNameValidation] = useState(false);
   const [phoneValidation, setPhoneValidation] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
@@ -26,11 +27,13 @@ export const UserSettingsPage = () => {
     newPassword: false,
     confirmPassword: false,
   });
+
   const [signInError, setSignInError] = useState({
     error: false,
     errorStatus: null,
     errorMessage: '',
   });
+
   const [values, setValues] = useState({
     phone: '',
     email: '',
@@ -71,35 +74,36 @@ export const UserSettingsPage = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleSubmitUserInfo = () => {};
+  const handleSubmitUserInfo = (event) => {
+    event.preventDefault();
+    console.log(values);
+  };
 
-  const handleSubmitUserPassword = () => {};
+  const handleSubmitUserPassword = (event) => {
+    event.preventDefault();
+    console.log(values);
+  };
 
   return (
-    <div className="user-settings">
-      <div className="user-settings--head">
-        <div>
-          <img alt="user logo" />
-        </div>
-        <span>Tony Stark</span>
-      </div>
-      <div className="user-settings--nav">
-        <button>Edit account</button>
-        <button>Orders History</button>
-        <button>Favourites</button>
-      </div>
+    <>
       <div className="user-settings--main-info">
-        <form className="w-100" onSubmit={handleSubmitUserInfo}>
-          <h3>Main Information</h3>
+        <form
+          className="user-settings--main-info-form w-100"
+          onSubmit={handleSubmitUserInfo}
+        >
+          <h3 style={{ marginRight: 'auto', marginTop: '50px' }}>
+            Main Information
+          </h3>
           <Box
             sx={{
-              mt: '50px',
-              width: '100%',
+              mt: '25px',
+              width: '376px',
               height: '36px',
             }}
           >
             <TextField
               error={fullNameValidation}
+              size="small"
               fullWidth
               label="Full Name"
               type="text"
@@ -115,13 +119,14 @@ export const UserSettingsPage = () => {
           </Box>
           <Box
             sx={{
-              mt: '50px',
-              width: '100%',
+              mt: '25px',
+              width: '376px',
               height: '36px',
             }}
           >
             <TextField
               error={signInError.errorStatus ? true : emailValidation}
+              size="small"
               fullWidth
               label="Email"
               type="email"
@@ -143,13 +148,14 @@ export const UserSettingsPage = () => {
           </Box>
           <Box
             sx={{
-              mt: '50px',
-              width: '100%',
+              mt: '25px',
+              width: '376px',
               height: '36px',
             }}
           >
             <TextField
               error={phoneValidation}
+              size="small"
               fullWidth
               label="Phone number"
               type="number"
@@ -165,13 +171,14 @@ export const UserSettingsPage = () => {
           </Box>
           <Box
             sx={{
-              mt: '50px',
-              width: '100%',
+              mt: '25px',
+              width: '376px',
               height: '36px',
             }}
           >
             <TextField
               fullWidth
+              size="small"
               label="Country"
               type="text"
               value={values.country}
@@ -180,13 +187,14 @@ export const UserSettingsPage = () => {
           </Box>
           <Box
             sx={{
-              mt: '50px',
-              width: '100%',
+              mt: '25px',
+              width: '376px',
               height: '36px',
             }}
           >
             <TextField
               fullWidth
+              size="small"
               label="City"
               type="text"
               value={values.city}
@@ -195,31 +203,52 @@ export const UserSettingsPage = () => {
           </Box>
           <Box
             sx={{
-              mt: '50px',
-              width: '100%',
+              mt: '25px',
+              width: '376px',
               height: '36px',
             }}
           >
             <TextField
               fullWidth
+              size="small"
               label="Address"
               type="text"
               value={values.address}
               onChange={handleChange('address')}
             />
           </Box>
-          <input className="register-btn w-100" type="submit" value="Save" />
+          <Box>
+            <Button
+              fullWidth
+              type="submit"
+              sx={{
+                mt: '40px',
+                textTransform: 'none',
+                backgroundColor: 'var(--orange-main)',
+                width: 376,
+                height: 36,
+                fontSize: '12px',
+              }}
+              variant="contained"
+            >
+              Save
+            </Button>
+          </Box>
         </form>
       </div>
 
       <div className="user-settings--change-password">
-        <form className="w-100" onSubmit={handleSubmitUserPassword}>
-          <h3>Change password</h3>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+        <form
+          className="user-settings--change-password-form w-100"
+          onSubmit={handleSubmitUserPassword}
+        >
+          <h3 style={{ marginRight: 'auto' }}>Change password</h3>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '376px' }}>
             <div style={{ m: 'dense', width: '100%' }}>
               <FormControl
+                size="small"
                 error={passwordValidation.currentPassword}
-                sx={{ mt: '50px', width: '100%' }}
+                sx={{ mt: '15px', width: '100%' }}
                 variant="outlined"
               >
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -255,25 +284,17 @@ export const UserSettingsPage = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Password"
+                  label="Current Password"
                 />
               </FormControl>
-              {
-                <FormHelperText
-                  error={passwordValidation.currentPassword}
-                  id="my-helper-text"
-                >
-                  Password must contain at least 8 characters, 1 letter, 1
-                  special symbol, 1 number
-                </FormHelperText>
-              }
             </div>
           </Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '376px' }}>
             <div style={{ m: 'dense', width: '100%' }}>
               <FormControl
+                size="small"
                 error={passwordValidation.newPassword}
-                sx={{ mt: '50px', width: '100%' }}
+                sx={{ mt: '15px', width: '100%' }}
                 variant="outlined"
               >
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -307,25 +328,17 @@ export const UserSettingsPage = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Password"
+                  label="New Password"
                 />
               </FormControl>
-              {
-                <FormHelperText
-                  error={passwordValidation.newPassword}
-                  id="my-helper-text"
-                >
-                  Password must contain at least 8 characters, 1 letter, 1
-                  special symbol, 1 number
-                </FormHelperText>
-              }
             </div>
           </Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', width: '376px' }}>
             <div style={{ m: 'dense', width: '100%' }}>
               <FormControl
+                size="small"
                 error={passwordValidation.confirmPassword}
-                sx={{ mt: '50px', width: '100%' }}
+                sx={{ mt: '15px', width: '100%' }}
                 variant="outlined"
               >
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -361,12 +374,16 @@ export const UserSettingsPage = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                  label="Password"
+                  label="Confirm Password"
                 />
               </FormControl>
               {
                 <FormHelperText
-                  error={passwordValidation.confirmPassword}
+                  error={
+                    passwordValidation.confirmPassword ||
+                    passwordValidation.currentPassword ||
+                    passwordValidation.newPassword
+                  }
                   id="my-helper-text"
                 >
                   Password must contain at least 8 characters, 1 letter, 1
@@ -375,13 +392,25 @@ export const UserSettingsPage = () => {
               }
             </div>
           </Box>
-          <input
-            className="register-btn w-100"
-            type="submit"
-            value="Change password"
-          />
+          <Box>
+            <Button
+              fullWidth
+              type="submit"
+              sx={{
+                m: '10px 0 30px 0',
+                textTransform: 'none',
+                backgroundColor: 'var(--orange-main)',
+                width: 376,
+                height: 36,
+                fontSize: '12px',
+              }}
+              variant="contained"
+            >
+              Change password
+            </Button>
+          </Box>
         </form>
       </div>
-    </div>
+    </>
   );
 };
