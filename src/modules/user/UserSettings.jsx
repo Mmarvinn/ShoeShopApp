@@ -44,9 +44,9 @@ export const UserSettings = () => {
             <Tab
               value="ordersHistory"
               style={tabStyle}
-              label="Orders History"
+              label="coming soon..."
             />
-            <Tab value="favourites" style={tabStyle} label="Favourites" />
+            <Tab value="favourites" style={tabStyle} label="coming soon..." />
           </Tabs>
         </Box>
       </div>

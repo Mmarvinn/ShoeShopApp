@@ -9,3 +9,9 @@ export const privateRequestHeadersAccept = () => ({
   accept: 'application/json',
   Authorization: `Bearer ${getJwtToken()}`,
 });
+
+export const privateRequestHeadersAcceptAndContent = () => ({
+  accept: 'application/json',
+  Authorization: `Bearer ${getJwtToken()}`,
+  'Content-Type': 'application/json',
+});

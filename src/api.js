@@ -3,7 +3,9 @@
 export const CATEGORIES = '/api/categories';
 export const USER_SIGN_IN = '/api/auth/register';
 export const USER_LOG_IN = '/api/auth/login';
-export const GET_ACCOUNT = '/api/account';
+export const ACCOUNT = '/api/account';
+export const ACCOUNT_PASSWORD = '/api/account/password';
+export const GET_COUNTRIES = '/api/locations/countries';
 
 export const getProductsBySearchUrl = (keywords, offset, limit) => {
   return `/api/products/search?keywords=${keywords}&offset=${offset}&limit=${limit}`;
