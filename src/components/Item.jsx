@@ -1,5 +1,5 @@
 import { AddToFavoriteButton } from './AddToFavourite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { favouriteApi } from '../modules/user/addToFavourite';
 import { useMakeRequest } from '../hooks/useMakeRequest';
 
@@ -21,6 +21,10 @@ export const Item = ({ data }) => {
     e.preventDefault();
     isFavourite(data.id);
   };
+
+  useEffect(() => {
+    setToggleLike(data.favorite);
+  }, [data.favorite]);
 
   return (
     <div className="product">

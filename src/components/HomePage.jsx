@@ -3,12 +3,14 @@ import { SearchPanel } from './searchPanel/SearchPanel';
 import Button from '@mui/material/Button';
 import { getProductsApi } from '../modules/product/getProduct';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { getProductsBySearchApi } from '../modules/product/getProductsBySearch';
 import { SearchNotFound } from './searchPanel/SearchNotFound';
 import { getAllProductsWithoutChoosenCategoryApi } from '../modules/product/getAllProducts';
 import { useMakeRequest } from '../hooks/useMakeRequest';
 
 export const HomePage = () => {
+  const userData = useSelector((state) => state.user.data);
   const { request, loading, error } = useMakeRequest();
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -146,12 +148,15 @@ export const HomePage = () => {
         productsPerPage,
         selectedSorting
       );
+
       setProducts(products);
+      // console.log(products);
     };
 
     getInitialAllProducts();
-  }, []);
+  }, [userData]);
 
+  console.log(products);
   return (
     <div>
       <SearchPanel

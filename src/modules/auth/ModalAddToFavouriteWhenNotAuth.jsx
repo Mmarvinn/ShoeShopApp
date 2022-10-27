@@ -45,7 +45,12 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
               <Link to="/home/login">
                 <Button
                   fullWidth
-                  sx={{ backgroundColor: 'var(--orange-main)' }}
+                  sx={{
+                    backgroundColor: 'var(--orange-main)',
+                    '&:hover': {
+                      backgroundColor: '#c35309',
+                    },
+                  }}
                   variant="contained"
                 >
                   Continue to log in
@@ -54,7 +59,12 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
               <Link to="/home/register">
                 <Button
                   fullWidth
-                  sx={{ backgroundColor: 'var(--orange-main)' }}
+                  sx={{
+                    backgroundColor: 'var(--orange-main)',
+                    '&:hover': {
+                      backgroundColor: '#c35309',
+                    },
+                  }}
                   variant="contained"
                 >
                   Continue to register
@@ -67,7 +77,8 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
                     color: 'var(--orange-main)',
                     borderColor: 'var(--orange-main)',
                     '&:hover': {
-                      color: 'var(--orange-main)',
+                      color: '#c35309',
+                      borderColor: '#c35309',
                     },
                   }}
                   variant="outlined"

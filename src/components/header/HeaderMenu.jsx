@@ -29,7 +29,7 @@ export function HeaderMenu({ userEmail, userFullName }) {
   };
 
   return (
-    <div>
+    <div className="header-menu">
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -42,6 +42,7 @@ export function HeaderMenu({ userEmail, userFullName }) {
         <KeyboardArrowDownIcon />
       </Button>
       <Menu
+        sx={{ top: '10px' }}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}

@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { FormHelperText } from '@mui/material';
 import {
@@ -144,7 +145,26 @@ export const LoginForm = ({ closeModal }) => {
           )}
         </div>
       </Box>
-      <input className="login-btn w-100" type="submit" value="Login" />
+      <Box>
+        <Button
+          fullWidth
+          type="submit"
+          sx={{
+            mt: '40px',
+            textTransform: 'none',
+            backgroundColor: 'var(--orange-main)',
+            width: '100%',
+            height: 36,
+            fontSize: '12px',
+            '&:hover': {
+              backgroundColor: '#c35309',
+            },
+          }}
+          variant="contained"
+        >
+          Login
+        </Button>
+      </Box>
     </form>
   );
 };

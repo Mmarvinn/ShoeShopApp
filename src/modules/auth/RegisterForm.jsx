@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Button from '@mui/material/Button';
 import { FormHelperText } from '@mui/material';
 import { signInUser } from '../user/redux/userSlice';
 import {
@@ -196,7 +197,26 @@ export const RegisterForm = ({ closeModal }) => {
           }
         </div>
       </Box>
-      <input className="register-btn w-100" type="submit" value="Register" />
+      <Box>
+        <Button
+          fullWidth
+          type="submit"
+          sx={{
+            mt: '40px',
+            textTransform: 'none',
+            backgroundColor: 'var(--orange-main)',
+            width: '100%',
+            height: 36,
+            fontSize: '12px',
+            '&:hover': {
+              backgroundColor: '#c35309',
+            },
+          }}
+          variant="contained"
+        >
+          Register
+        </Button>
+      </Box>
     </form>
   );
 };

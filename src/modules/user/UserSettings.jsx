@@ -4,24 +4,36 @@ import Tab from '@mui/material/Tab';
 import { ClientAvatar } from '../../components/header/ClientAvatar';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
-import { UserEditAccount } from './UserEditAccount';
 import { UserOrdersHistory } from './UserOrdersHistory';
 import { UserFavourites } from './UserFavourites';
-
-const tabStyle = {
-  border: '1px solid #DEDEE0',
-  backgroundColor: 'var(--orange-main)',
-  color: 'black',
-  textTransform: 'none',
-};
+import { UserEditInfo } from './UserEditInfo';
+import { TabMenuLink } from '../../components/TabMenuLink';
 
 export const UserSettings = () => {
   const [tabMenu, setTabMenu] = useState('editAccount');
-  const userName = useSelector((state) => state.user.data.fullName);
+  const userName = useSelector((state) => state.user.data?.fullName || '');
 
   const changeTabMenu = (event, newValue) => {
     setTabMenu(newValue);
   };
+
+  const tabStyle = {
+    padding: '0',
+  };
+
+  const whenChooseTabProps = {
+    backgroundColor: 'var(--orange-main)',
+    textColor: 'white',
+    isEnableBottomArrow: true,
+  };
+
+  const whenDontChooseTabProps = {
+    backgroundColor: 'white',
+    textColor: 'black',
+    isEnableBottomArrow: false,
+  };
+
+  // when selected
 
   return (
     <div className="user-settings">
@@ -39,18 +51,41 @@ export const UserSettings = () => {
       </div>
       <div className="user-settings--nav">
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <Tabs value={tabMenu} onChange={changeTabMenu} centered>
-            <Tab value="editAccount" style={tabStyle} label="Edit Account" />
+          <Tabs
+            value={tabMenu}
+            indicatorColor="none"
+            onChange={changeTabMenu}
+            centered
+          >
+            <Tab
+              value="editAccount"
+              disableRipple
+              style={tabStyle}
+              icon={<TabMenuLink text="Edit Account" selected={Boolean} />}
+            />
             <Tab
               value="ordersHistory"
+              disableRipple
               style={tabStyle}
-              label="coming soon..."
+              icon={
+                <TabMenuLink text="coming soon..." {...whenChooseTabProps} />
+              }
             />
-            <Tab value="favourites" style={tabStyle} label="coming soon..." />
+            <Tab
+              value="favourites"
+              disableRipple
+              style={tabStyle}
+              icon={
+                <TabMenuLink
+                  text="coming soon..."
+                  {...whenDontChooseTabProps}
+                />
+              }
+            />
           </Tabs>
         </Box>
       </div>
-      {tabMenu === 'editAccount' && <UserEditAccount />}
+      {tabMenu === 'editAccount' && <UserEditInfo />}
       {tabMenu === 'ordersHistory' && <UserOrdersHistory />}
       {tabMenu === 'favourites' && <UserFavourites />}
     </div>
