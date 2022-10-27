@@ -80,7 +80,7 @@ export function HeaderMenu({ userEmail, userFullName }) {
           <span className="w-100">{userFullName}</span>
           <span className="header-menu-item-email w-100">{userEmail}</span>
         </MenuItem>
-        <Link to="/settings" style={{ color: 'black' }}>
+        <Link to="/settings/edit" style={{ color: 'black' }}>
           <MenuItem onClick={handleClickSetting}>Settings</MenuItem>
         </Link>
         <MenuItem onClick={logOut}>Logout</MenuItem>

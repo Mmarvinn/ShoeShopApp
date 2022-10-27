@@ -32,10 +32,22 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/home/*" element={<HomePage />} />
-          <Route path="/settings/*" element={<UserSettings />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/settings/*" element={<UserSettings />} />
         </Routes>
         <Routes>
+          <Route
+            path={
+              location.pathname.includes('home')
+                ? 'home/product/:productId'
+                : '/settings/favourites/product/:productId'
+            }
+            element={<OneProductInfoModal />}
+          />
+          <Route
+            path="/settings/orders/order-details/:orderId"
+            element={<OrderDetailsModal />}
+          />
           <Route
             path={slicePathname('/register')}
             element={<RegisterModal />}
@@ -44,14 +56,6 @@ function App() {
           <Route
             path={slicePathname('/add-to-favourite')}
             element={<ModalAddToFavouriteWhenNotAuth />}
-          />
-          <Route
-            path="/home/product/:productId"
-            element={<OneProductInfoModal />}
-          />
-          <Route
-            path="/settings/order-details/:orderId"
-            element={<OrderDetailsModal />}
           />
         </Routes>
         <Routes></Routes>

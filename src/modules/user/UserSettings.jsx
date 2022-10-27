@@ -8,8 +8,11 @@ import { UserOrdersHistory } from './UserOrdersHistory';
 import { UserFavourites } from './UserFavourites';
 import { UserEditInfo } from './UserEditInfo';
 import { TabMenuLink } from '../../components/TabMenuLink';
+import { Routes, Route, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const UserSettings = () => {
+  const location = useLocation();
   const [tabMenu, setTabMenu] = useState('editAccount');
   const userName = useSelector((state) => state.user.data?.fullName || '');
 
@@ -47,26 +50,55 @@ export const UserSettings = () => {
               value="editAccount"
               disableRipple
               style={tabStyle}
-              icon={<TabMenuLink text="Edit Account" selected={false} />}
+              icon={
+                <Link to="/settings/edit">
+                  <TabMenuLink
+                    text="Edit Account"
+                    selected={
+                      location.pathname === '/settings/edit' ? true : false
+                    }
+                  />
+                </Link>
+              }
             />
             <Tab
               value="ordersHistory"
               disableRipple
               style={tabStyle}
-              icon={<TabMenuLink text="coming soon..." selected={false} />}
+              icon={
+                <Link to="/settings/orders">
+                  <TabMenuLink
+                    text="coming soon..."
+                    selected={
+                      location.pathname === '/settings/orders' ? true : false
+                    }
+                  />
+                </Link>
+              }
             />
             <Tab
               value="favourites"
               disableRipple
               style={tabStyle}
-              icon={<TabMenuLink text="Favourites" selected={true} />}
+              icon={
+                <Link to="/settings/favourites">
+                  <TabMenuLink
+                    text="Favourites"
+                    selected={
+                      location.pathname === '/settings/favourites'
+                        ? true
+                        : false
+                    }
+                  />
+                </Link>
+              }
             />
           </Tabs>
         </Box>
       </div>
-      {tabMenu === 'editAccount' && <UserEditInfo />}
-      {tabMenu === 'ordersHistory' && <UserOrdersHistory />}
-      {tabMenu === 'favourites' && <UserFavourites />}
+      {location.pathname === '/settings/edit' && <UserEditInfo />}
+      {location.pathname === '/settings/orders' && <UserOrdersHistory />}
+      {location.pathname === '/settings/favourites' && <UserFavourites />}
     </div>
   );
 };

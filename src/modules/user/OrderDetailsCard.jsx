@@ -1,10 +1,10 @@
-import testImage from '../../images/test-image.jpg';
+// import testImage from '../../images/test-image.jpg';
 
 export const OrderDetailsCard = () => {
   return (
     <div className="order--card">
       <div className="card--img-wrapper">
-        <img className="card--img" src={testImage} alt="product" />
+        <img className="card--img" /* src={testImage} */ alt="product" />
       </div>
       <div className="card--title-wrapper">
         <h4>Title product</h4>

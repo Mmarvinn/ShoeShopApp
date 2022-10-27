@@ -10,7 +10,7 @@ export const OrderHistoryCard = () => {
     <div className="user-settings--order">
       <div className="order--order-id-wrapper">
         <span style={{ paddingLeft: '20px' }}>Order ID:</span>
-        <Link to={`/settings/order-details/333333`}>
+        <Link to={`/settings/orders/order-details/333333`}>
           <span className="fw-500" style={{ color: 'blue' }}>
             333333
           </span>

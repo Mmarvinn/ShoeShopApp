@@ -11,21 +11,18 @@ export const UserFavourites = () => {
   useEffect(() => {
     const getFavourites = async () => {
       const newProducts = await request(getFavouritesApi, 0, productsPerPage);
-      console.log(newProducts);
       setProducts(newProducts);
     };
 
     getFavourites();
   }, []);
 
-  // console.log(products);
-
   return (
     <div className="w-100" style={{ margin: '0 10px' }}>
       {products.length !== 0 ? (
         <ItemList products={products} />
       ) : (
-        <h2>You have no Favourite products</h2>
+        <h2 style={{ margin: '50px 0' }}>You have no Favourite products</h2>
       )}
     </div>
   );

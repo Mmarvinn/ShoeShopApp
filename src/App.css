@@ -20,6 +20,7 @@ a {
 
 main {
   width: 900px;
+  min-height: 785px;
   margin: 0 auto;
 }
 
@@ -69,6 +70,15 @@ footer {
 
 .fw-500 {
   font-weight: 500;
+}
+
+.page-404 {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 600px;
+  align-items: center;
 }
 
 .header--register-wrapper {
