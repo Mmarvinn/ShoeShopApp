@@ -150,13 +150,11 @@ export const HomePage = () => {
       );
 
       setProducts(products);
-      // console.log(products);
     };
 
     getInitialAllProducts();
   }, [userData]);
 
-  console.log(products);
   return (
     <div>
       <SearchPanel

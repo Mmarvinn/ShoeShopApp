@@ -21,20 +21,6 @@ export const UserSettings = () => {
     padding: '0',
   };
 
-  const whenChooseTabProps = {
-    backgroundColor: 'var(--orange-main)',
-    textColor: 'white',
-    isEnableBottomArrow: true,
-  };
-
-  const whenDontChooseTabProps = {
-    backgroundColor: 'white',
-    textColor: 'black',
-    isEnableBottomArrow: false,
-  };
-
-  // when selected
-
   return (
     <div className="user-settings">
       <div className="user-settings--head">
@@ -61,26 +47,19 @@ export const UserSettings = () => {
               value="editAccount"
               disableRipple
               style={tabStyle}
-              icon={<TabMenuLink text="Edit Account" selected={Boolean} />}
+              icon={<TabMenuLink text="Edit Account" selected={false} />}
             />
             <Tab
               value="ordersHistory"
               disableRipple
               style={tabStyle}
-              icon={
-                <TabMenuLink text="coming soon..." {...whenChooseTabProps} />
-              }
+              icon={<TabMenuLink text="coming soon..." selected={false} />}
             />
             <Tab
               value="favourites"
               disableRipple
               style={tabStyle}
-              icon={
-                <TabMenuLink
-                  text="coming soon..."
-                  {...whenDontChooseTabProps}
-                />
-              }
+              icon={<TabMenuLink text="Favourites" selected={true} />}
             />
           </Tabs>
         </Box>

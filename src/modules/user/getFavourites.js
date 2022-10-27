@@ -1,11 +1,11 @@
 import { getFavouritesUrl } from '../../api';
-import { privateRequestHeadersContentType } from './privateRequest';
+import { privateRequestHeadersAccept } from './privateRequest';
 
 export const getFavouritesApi = async (offset, limit) => {
-  const response = fetch(getFavouritesUrl(offset, limit), {
+  const response = await fetch(getFavouritesUrl(offset, limit), {
     method: 'GET',
-    headers: privateRequestHeadersContentType(),
+    headers: privateRequestHeadersAccept(),
   });
 
-  return await response.json();
+  return response.json();
 };

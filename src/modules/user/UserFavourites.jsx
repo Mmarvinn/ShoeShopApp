@@ -11,6 +11,7 @@ export const UserFavourites = () => {
   useEffect(() => {
     const getFavourites = async () => {
       const newProducts = await request(getFavouritesApi, 0, productsPerPage);
+      console.log(newProducts);
       setProducts(newProducts);
     };
 
@@ -20,8 +21,8 @@ export const UserFavourites = () => {
   // console.log(products);
 
   return (
-    <div className="w-100">
-      {!!products ? (
+    <div className="w-100" style={{ margin: '0 10px' }}>
+      {products.length !== 0 ? (
         <ItemList products={products} />
       ) : (
         <h2>You have no Favourite products</h2>

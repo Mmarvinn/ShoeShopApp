@@ -19,7 +19,7 @@ a {
 }
 
 main {
-  width: 880px;
+  width: 900px;
   margin: 0 auto;
 }
 
@@ -185,7 +185,7 @@ footer {
   position: relative;
   width: 209px;
   height: 212px;
-  background-color: white;
+  background-color: #cfcfcf;
   border-radius: 4px;
 }
 

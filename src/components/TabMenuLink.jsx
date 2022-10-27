@@ -1,13 +1,8 @@
-export const TabMenuLink = ({
-  backgroundColor,
-  textColor,
-  text,
-  isEnableBottomArrow,
-}) => {
+export const TabMenuLink = ({ text, selected }) => {
   const squareStyle = {
     width: '160px',
     height: '69.3px',
-    backgroundColor: backgroundColor,
+    backgroundColor: selected ? 'var(--orange-main)' : 'white',
     position: 'relative',
     border: '1.5px solid #DEDEE0',
     zIndex: '0',
@@ -16,11 +11,15 @@ export const TabMenuLink = ({
     justifyContent: 'center',
     alignItems: 'center',
   };
-  const textInSquareStyle = { fontSize: '15px', color: textColor };
+  const textInSquareStyle = {
+    fontSize: '15px',
+    color: selected ? 'white' : 'black',
+  };
+
   const bottomArrowStyle = {
     width: '14px',
     height: '14px',
-    backgroundColor: backgroundColor,
+    backgroundColor: 'var(--orange-main)',
     borderBottom: '1.5px solid #DEDEE0',
     borderRight: '1.5px solid #DEDEE0',
     zIndex: '1',
@@ -35,7 +34,7 @@ export const TabMenuLink = ({
       <div style={squareStyle}>
         <span style={textInSquareStyle}>{text}</span>
       </div>
-      {isEnableBottomArrow && <div style={bottomArrowStyle} />}
+      {selected && <div style={bottomArrowStyle} />}
     </div>
   );
 };

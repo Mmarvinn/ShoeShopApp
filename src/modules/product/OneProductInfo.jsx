@@ -53,7 +53,7 @@ export const OneProductInfo = () => {
           <img
             className="one-product-img"
             src={productInfo.picture}
-            alt="picture of product"
+            alt="product"
           />
         </div>
         <div className="one-product--description-wrapper">
@@ -119,7 +119,8 @@ export const OneProductInfo = () => {
                 color: 'var(--orange-main)',
                 borderColor: 'var(--orange-main)',
                 '&:hover': {
-                  color: 'var(--orange-main)',
+                  color: '#c35309',
+                  borderColor: '#c35309',
                 },
               }}
               variant="outlined"
@@ -139,6 +140,9 @@ export const OneProductInfo = () => {
                       height: 36,
                       mr: '90px',
                       fontSize: '12px',
+                      '&:hover': {
+                        backgroundColor: '#c35309',
+                      },
                     }
                   : {
                       width: 220,
@@ -148,7 +152,8 @@ export const OneProductInfo = () => {
                       color: 'var(--orange-main)',
                       borderColor: 'var(--orange-main)',
                       '&:hover': {
-                        color: 'var(--orange-main)',
+                        color: '#c35309',
+                        borderColor: '#c35309',
                       },
                     }
               }
@@ -177,6 +182,9 @@ export const OneProductInfo = () => {
                 width: 220,
                 height: 36,
                 fontSize: '12px',
+                '&:hover': {
+                  backgroundColor: '#c35309',
+                },
               }}
               variant="contained"
             >
