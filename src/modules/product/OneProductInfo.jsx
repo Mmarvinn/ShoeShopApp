@@ -1,88 +1,60 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getInfoAboutOneProduct } from './getInfoAboutOneProduct';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import closeIcon from '../../images/close-icon.svg';
 import doneIcon from '../../images/done-icon.svg';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
-export const OneProductInfo = () => {
-  const [productInfo, setProductInfo] = useState({});
-  const [qtyOfProducts, setQtyOfProducts] = useState(1);
-  const [toggleFavouriteBtn, setToggleFavouriteBtn] = useState(false);
-  const navigate = useNavigate();
-  const params = useParams();
+export const OneProductInfo = ({
+  onClose,
+  title,
+  description,
+  price,
+  picture,
+  favorite,
+  onFavorite,
+}) => {
+  const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const getProductInfo = async (productId) => {
-      const fetchedData = await getInfoAboutOneProduct(productId);
-      setProductInfo(fetchedData);
-    };
-
-    getProductInfo(params.productId);
-  }, []);
-
-  const increseQtyOfProducts = () => {
-    setQtyOfProducts((prevState) => prevState + 1);
+  const increaseQuantity = () => {
+    setQuantity((prevState) => prevState + 1);
   };
-  const decreseQtyOfProducts = () => {
-    setQtyOfProducts((prevState) => {
-      if (prevState <= 1) {
-        return 1;
-      } else {
-        return prevState - 1;
-      }
-    });
+  const decreaseQuantity = () => {
+    setQuantity((prevState) => (prevState <= 1 ? 1 : prevState - 1));
   };
-
-  const closeModal = () => {
-    navigate(-1);
-  };
-
-  console.log(productInfo);
 
   return (
     <div className="one-product-wrapper">
-      <button onClick={closeModal} className="one-product--close-btn">
+      <button onClick={onClose} className="one-product--close-btn">
         <img src={closeIcon} alt="close icon" />
       </button>
       <div className="one-product--content-wrapper">
         <div className="one-product--img-wrapper">
-          <img
-            className="one-product-img"
-            src={productInfo.picture}
-            alt="product"
-          />
+          <img className="one-product-img" src={picture} alt="product" />
         </div>
         <div className="one-product--description-wrapper">
-          <h3 className="one-product--title">{productInfo.title}</h3>
-          <p className="one-product--description">
-            {productInfo.description
-              ? productInfo.description
-              : 'Sorry, server has no description about this product'}
-          </p>
+          <h3 className="one-product--title">{title}</h3>
+          <p className="one-product--description">{description || ''}</p>
           <div className="w-100">
             <span className="fw-700">PRICE</span>
             <span
               className="fw-700"
               style={{ marginLeft: '170px', fontSize: '18px' }}
             >
-              ${productInfo.price}
+              ${price}
             </span>
           </div>
           <div className="w-100">
             <button
               className="one-product--inc-dec-btn"
-              onClick={decreseQtyOfProducts}
+              onClick={decreaseQuantity}
             >
               -
             </button>
-            <span className="one-product-product-qty">{qtyOfProducts}</span>
+            <span className="one-product-product-qty">{quantity}</span>
             <button
               className="one-product--inc-dec-btn"
-              onClick={increseQtyOfProducts}
+              onClick={increaseQuantity}
             >
               +
             </button>
@@ -93,7 +65,7 @@ export const OneProductInfo = () => {
               className="fw-700"
               style={{ marginLeft: '20px', fontSize: '18px' }}
             >
-              {qtyOfProducts}
+              {quantity}
             </span>
           </div>
           <div className="w-100">
@@ -102,14 +74,14 @@ export const OneProductInfo = () => {
               className="fw-700"
               style={{ marginLeft: '25px', fontSize: '18px' }}
             >
-              ${qtyOfProducts * productInfo.price}
+              ${quantity * price}
             </span>
           </div>
         </div>
       </div>
       <div className="one-product--buttons-wrapper">
         <Stack spacing={3} direction="row">
-          <Link to="">
+          <div>
             <Button
               fullWidth
               sx={{
@@ -127,13 +99,13 @@ export const OneProductInfo = () => {
             >
               ADD TO CART
             </Button>
-          </Link>
-
-          <Link to="">
+          </div>
+          <div>
             <Button
               className="one-product--added-btn"
+              onClick={onFavorite}
               sx={
-                toggleFavouriteBtn
+                favorite
                   ? {
                       backgroundColor: 'var(--orange-main)',
                       width: 220,
@@ -158,11 +130,11 @@ export const OneProductInfo = () => {
                     }
               }
               fullWidth
-              variant={toggleFavouriteBtn ? 'contained' : 'outlined'}
+              variant={favorite ? 'contained' : 'outlined'}
             >
-              {toggleFavouriteBtn ? (
+              {favorite ? (
                 <div>
-                  <span>ADDED TO FAVOURITES</span>
+                  <span>ADDED TO FAVORITES</span>
                   <img
                     style={{ paddingLeft: '7px' }}
                     src={doneIcon}
@@ -170,10 +142,10 @@ export const OneProductInfo = () => {
                   />
                 </div>
               ) : (
-                'ADD TO FAVOURITES'
+                'ADD TO FAVORITES'
               )}
             </Button>
-          </Link>
+          </div>
           <Link to="">
             <Button
               fullWidth

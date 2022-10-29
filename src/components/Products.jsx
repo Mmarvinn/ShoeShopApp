@@ -8,17 +8,49 @@ import { getProductsBySearchApi } from '../modules/product/getProductsBySearch';
 import { SearchNotFound } from './searchPanel/SearchNotFound';
 import { getAllProductsWithoutChoosenCategoryApi } from '../modules/product/getAllProducts';
 import { useMakeRequest } from '../hooks/useMakeRequest';
+import { AlertAddedToFavourite } from './AlertAddedToFavourite';
 
-export const HomePage = () => {
+export const Products = () => {
   const userData = useSelector((state) => state.user.data);
-  const { request, loading, error } = useMakeRequest();
+  const { request } = useMakeRequest();
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSorting, setSelectedSorting] = useState('latest');
   const [textOfFind, setTextOfFind] = useState('');
   const [page, setPage] = useState(0);
+  const [alertProps, setAlertProps] = useState({
+    isOpen: false,
+    alertType: 'success',
+    productTitle: '',
+  });
   const productsPerPage = 16;
   const offset = page * productsPerPage;
+
+  const handleCloseAlert = (alertClose) => {
+    setAlertProps((prevState) => ({
+      ...prevState,
+      isOpen: !alertClose,
+    }));
+  };
+
+  const changeAlertType = (bool) => {
+    handleCloseAlert(true);
+    setTimeout(() => {
+      setAlertProps((prevState) => ({
+        ...prevState,
+        alertType: bool ? 'error' : 'success',
+        isOpen: alertProps.isOpen,
+      }));
+      handleCloseAlert(false);
+    }, 0);
+  };
+
+  const changeAlertProductName = (productName) => {
+    setAlertProps((prevState) => ({
+      ...prevState,
+      productTitle: productName,
+    }));
+  };
 
   const onSearch = async (userFindValue) => {
     setTextOfFind(userFindValue);
@@ -168,7 +200,19 @@ export const HomePage = () => {
       />
       {products.length !== 0 ? (
         <>
-          <ItemList products={products} />
+          {alertProps.isOpen && (
+            <AlertAddedToFavourite
+              handleCloseAlert={handleCloseAlert}
+              alertProps={alertProps}
+            />
+          )}
+
+          <ItemList
+            products={products}
+            handleCloseAlert={handleCloseAlert}
+            changeAlertType={changeAlertType}
+            changeAlertProductName={changeAlertProductName}
+          />
           <Button
             onClick={loadMore}
             variant="contained"

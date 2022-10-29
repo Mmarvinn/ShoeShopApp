@@ -26,6 +26,9 @@ main {
 
 header {
   width: 100%;
+  z-index: 3;
+  position: sticky;
+  top: 0;
   height: 76px;
   background-color: #110f21;
   display: flex;
@@ -79,6 +82,13 @@ footer {
   justify-content: center;
   height: 600px;
   align-items: center;
+}
+
+.favourite-alert {
+  z-index: 2;
+  position: fixed;
+  top: 80px;
+  right: 290px;
 }
 
 .header--register-wrapper {
@@ -189,13 +199,15 @@ footer {
   border-radius: 6px;
   padding: 4px;
   object-fit: cover;
+  overflow: hidden;
 }
 
 .product {
   position: relative;
   width: 209px;
   height: 212px;
-  background-color: #cfcfcf;
+  border: 1px solid #e4e4e4;
+  box-shadow: 0px 4px 14px rgba(121, 121, 121, 0.0527344);
   border-radius: 4px;
 }
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { OneProductInfo } from './OneProductInfo';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const style = {
   display: 'flex',
@@ -20,24 +19,28 @@ const style = {
   p: 4,
 };
 
-export const OneProductInfoModal = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleClose = () => {
-    navigate(-1);
-  };
-
+export const OneProductInfoModal = ({
+  onClose,
+  open,
+  title,
+  description,
+  ...rest
+}) => {
   return (
     <div>
       <Modal
-        open={location.pathname.includes('product')}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        open={open}
+        onClose={onClose}
+        aria-labelledby={title}
+        aria-describedby={description}
       >
         <Box sx={style}>
-          <OneProductInfo />
+          <OneProductInfo
+            onClose={onClose}
+            title={title}
+            description={description}
+            {...rest}
+          />
         </Box>
       </Modal>
     </div>
