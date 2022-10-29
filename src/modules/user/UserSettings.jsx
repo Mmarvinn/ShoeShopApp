@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { Navigate } from 'react-router-dom';
 import { ClientAvatar } from '../../components/header/ClientAvatar';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
@@ -8,21 +6,12 @@ import { UserOrdersHistory } from './UserOrdersHistory';
 import { UserFavourites } from './UserFavourites';
 import { UserEditInfo } from './UserEditInfo';
 import { TabMenuLink } from '../../components/TabMenuLink';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 export const UserSettings = () => {
   const location = useLocation();
-  const [tabMenu, setTabMenu] = useState('editAccount');
   const userName = useSelector((state) => state.user.data?.fullName || '');
-
-  const changeTabMenu = (event, newValue) => {
-    setTabMenu(newValue);
-  };
-
-  const tabStyle = {
-    padding: '0',
-  };
 
   return (
     <div className="user-settings">
@@ -39,66 +28,32 @@ export const UserSettings = () => {
         </span>
       </div>
       <div className="user-settings--nav">
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <Tabs
-            value={tabMenu}
-            indicatorColor="none"
-            onChange={changeTabMenu}
-            centered
-          >
-            <Tab
-              value="editAccount"
-              disableRipple
-              style={tabStyle}
-              icon={
-                <Link to="/settings/edit">
-                  <TabMenuLink
-                    text="Edit Account"
-                    selected={
-                      location.pathname === '/settings/edit' ? true : false
-                    }
-                  />
-                </Link>
-              }
-            />
-            <Tab
-              value="ordersHistory"
-              disableRipple
-              style={tabStyle}
-              icon={
-                <Link to="/settings/orders">
-                  <TabMenuLink
-                    text="coming soon..."
-                    selected={
-                      location.pathname === '/settings/orders' ? true : false
-                    }
-                  />
-                </Link>
-              }
-            />
-            <Tab
-              value="favourites"
-              disableRipple
-              style={tabStyle}
-              icon={
-                <Link to="/settings/favourites">
-                  <TabMenuLink
-                    text="Favourites"
-                    selected={
-                      location.pathname === '/settings/favourites'
-                        ? true
-                        : false
-                    }
-                  />
-                </Link>
-              }
-            />
-          </Tabs>
+        <Box
+          sx={{ width: '100%', bgcolor: 'background.paper', display: 'flex' }}
+        >
+          <TabMenuLink
+            path="/settings/edit"
+            text="Edit Account"
+            selected={location.pathname === '/settings/edit'}
+          />
+          <TabMenuLink
+            path="/settings/orders"
+            text="coming soon..."
+            selected={location.pathname === '/settings/orders'}
+          />
+          <TabMenuLink
+            path="/settings/favourites"
+            text="Favourites"
+            selected={location.pathname === '/settings/favourites'}
+          />
         </Box>
       </div>
-      {location.pathname === '/settings/edit' && <UserEditInfo />}
-      {location.pathname === '/settings/orders' && <UserOrdersHistory />}
-      {location.pathname === '/settings/favourites' && <UserFavourites />}
+      <Routes>
+        <Route index element={<Navigate to="/settings/edit" replace />} />
+        <Route path="/edit" element={<UserEditInfo />} />
+        <Route path="/orders" element={<UserOrdersHistory />} />
+        <Route path="/favourites" element={<UserFavourites />} />
+      </Routes>
     </div>
   );
 };

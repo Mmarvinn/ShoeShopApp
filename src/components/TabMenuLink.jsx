@@ -1,4 +1,6 @@
-export const TabMenuLink = ({ text, selected }) => {
+import { Link } from 'react-router-dom';
+
+export const TabMenuLink = ({ text, selected, path }) => {
   const squareStyle = {
     width: '160px',
     height: '69.3px',
@@ -30,11 +32,13 @@ export const TabMenuLink = ({ text, selected }) => {
   };
 
   return (
-    <div style={{ position: 'relative', height: '81px' }}>
-      <div style={squareStyle}>
-        <span style={textInSquareStyle}>{text}</span>
+    <Link to={path}>
+      <div style={{ position: 'relative', height: '81px' }}>
+        <div style={squareStyle}>
+          <span style={textInSquareStyle}>{text}</span>
+        </div>
+        {selected && <div style={bottomArrowStyle} />}
       </div>
-      {selected && <div style={bottomArrowStyle} />}
-    </div>
+    </Link>
   );
 };
