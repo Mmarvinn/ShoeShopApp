@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { useUserLogin } from './modules/auth/hooks/useUserLogin';
 import { UserSettings } from './modules/user/UserSettings';
 import { OrderDetailsModal } from './modules/user/OrderDetailsModal';
+import { PrivateRoute } from './HOKs/PrivateRoute';
 
 function App() {
   const location = useLocation();
@@ -32,7 +33,14 @@ function App() {
         <Routes>
           <Route path="/home/*" element={<Products />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/settings/*" element={<UserSettings />} />
+          <Route
+            path="/settings/*"
+            element={
+              <PrivateRoute>
+                <UserSettings />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Routes>
           <Route
