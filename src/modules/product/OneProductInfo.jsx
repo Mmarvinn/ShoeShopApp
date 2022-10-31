@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import closeIcon from '../../images/close-icon.svg';
-import doneIcon from '../../images/done-icon.svg';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+
+import closeIcon from '../../images/close-icon.svg';
+import doneIcon from '../../images/done-icon.svg';
+import { addToCart } from '../cart/redux/cartSlice';
 
 export const OneProductInfo = ({
   onClose,
@@ -13,14 +16,28 @@ export const OneProductInfo = ({
   picture,
   favorite,
   onFavorite,
+  id,
 }) => {
-  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
+  const productFromCart = useSelector((state) => state.cart[id]);
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(productFromCart?.quantity || 1);
+  const isAddedToCart = productFromCart?.quantity !== quantity;
 
   const increaseQuantity = () => {
     setQuantity((prevState) => prevState + 1);
   };
   const decreaseQuantity = () => {
     setQuantity((prevState) => (prevState <= 1 ? 1 : prevState - 1));
+  };
+
+  const onAddToCart = () => {
+    dispatch(addToCart({ title, price, picture, id, quantity: quantity }));
+  };
+
+  const onBuy = () => {
+    onAddToCart();
+    navigate('/cart');
   };
 
   return (
@@ -83,21 +100,45 @@ export const OneProductInfo = ({
         <Stack spacing={3} direction="row">
           <div>
             <Button
+              onClick={onAddToCart}
               fullWidth
-              sx={{
-                width: 220,
-                height: 36,
-                fontSize: '12px',
-                color: 'var(--orange-main)',
-                borderColor: 'var(--orange-main)',
-                '&:hover': {
-                  color: '#c35309',
-                  borderColor: '#c35309',
-                },
-              }}
-              variant="outlined"
+              sx={
+                isAddedToCart
+                  ? {
+                      width: 220,
+                      height: 36,
+                      fontSize: '12px',
+                      color: 'var(--orange-main)',
+                      borderColor: 'var(--orange-main)',
+                      '&:hover': {
+                        color: '#c35309',
+                        borderColor: '#c35309',
+                      },
+                    }
+                  : {
+                      backgroundColor: 'var(--orange-main)',
+                      width: 220,
+                      height: 36,
+                      fontSize: '12px',
+                      '&:hover': {
+                        backgroundColor: '#c35309',
+                      },
+                    }
+              }
+              variant={isAddedToCart ? 'outlined' : 'contained'}
             >
-              ADD TO CART
+              {isAddedToCart ? (
+                'ADD TO CART'
+              ) : (
+                <div>
+                  <span>ADDED TO CART</span>
+                  <img
+                    style={{ paddingLeft: '7px' }}
+                    src={doneIcon}
+                    alt="done icon"
+                  />
+                </div>
+              )}
             </Button>
           </div>
           <div>
@@ -146,23 +187,22 @@ export const OneProductInfo = ({
               )}
             </Button>
           </div>
-          <Link to="">
-            <Button
-              fullWidth
-              sx={{
-                backgroundColor: 'var(--orange-main)',
-                width: 220,
-                height: 36,
-                fontSize: '12px',
-                '&:hover': {
-                  backgroundColor: '#c35309',
-                },
-              }}
-              variant="contained"
-            >
-              BUY NOW
-            </Button>
-          </Link>
+          <Button
+            onClick={onBuy}
+            fullWidth
+            sx={{
+              backgroundColor: 'var(--orange-main)',
+              width: 220,
+              height: 36,
+              fontSize: '12px',
+              '&:hover': {
+                backgroundColor: '#c35309',
+              },
+            }}
+            variant="contained"
+          >
+            BUY NOW
+          </Button>
         </Stack>
       </div>
     </div>

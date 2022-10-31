@@ -17,8 +17,16 @@ export const validateEmail = (values) => {
 };
 
 export const validatePhone = (values) => {
-  const regEx = /^(\\+)?([0-9]){10,14}$/;
+  const regEx = /^(\+)?([0-9]){10,14}$/;
   return !regEx.test(values.phone);
+};
+
+export const validateInputLessThanThree = (value) => {
+  if (value.length < 3) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const validateRegisterInputs = (values) => {

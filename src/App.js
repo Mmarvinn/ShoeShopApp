@@ -9,8 +9,9 @@ import { ModalAddToFavouriteWhenNotAuth } from './modules/auth/ModalAddToFavouri
 import { useLocation } from 'react-router-dom';
 import { useUserLogin } from './modules/auth/hooks/useUserLogin';
 import { UserSettings } from './modules/user/UserSettings';
-import { OrderDetailsModal } from './modules/user/OrderDetailsModal';
 import { PrivateRoute } from './HOKs/PrivateRoute';
+import { Cart } from './modules/cart/Cart';
+import { OrderDetailsModal } from './modules/user/OrderDetailsModal';
 
 function App() {
   const location = useLocation();
@@ -32,7 +33,6 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/home/*" element={<Products />} />
-          <Route path="*" element={<NotFound />} />
           <Route
             path="/settings/*"
             element={
@@ -41,12 +41,17 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/cart"
+            element={
+              <PrivateRoute>
+                <Cart />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Routes>
-          <Route
-            path="/settings/orders/order-details/:orderId"
-            element={<OrderDetailsModal />}
-          />
           <Route
             path={slicePathname('/register')}
             element={<RegisterModal />}
@@ -57,7 +62,6 @@ function App() {
             element={<ModalAddToFavouriteWhenNotAuth />}
           />
         </Routes>
-        <Routes></Routes>
       </Layout>
     </div>
   );

@@ -206,9 +206,10 @@ footer {
   position: relative;
   width: 209px;
   height: 212px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid #e0e0e0;
   box-shadow: 0px 4px 14px rgba(121, 121, 121, 0.0527344);
   border-radius: 4px;
+  background-color: lightgray;
 }
 
 .product:hover {
@@ -324,7 +325,7 @@ footer {
 }
 
 .user-settings {
-  width: 900px;
+  width: 950px;
   min-height: 785px;
   background-color: #ffffff;
   display: flex;
@@ -400,6 +401,10 @@ footer {
   height: 123px;
   overflow: hidden;
   border-radius: 4px;
+  margin-left: -15px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0px 4px 14px rgb(121 121 121 / 5%);
+  border-radius: 4px;
 }
 
 .card--img {
@@ -409,6 +414,11 @@ footer {
 }
 
 .order--card {
+  margin: 10px 0;
+}
+
+.order--card,
+.cart--card {
   width: 560px;
   height: 160px;
   display: grid;
@@ -416,7 +426,7 @@ footer {
   justify-items: center;
   align-items: center;
   border: 1px solid #eceef0;
-  margin: 10px 0;
+  box-shadow: 0px 4px 14px rgba(121, 121, 121, 0.0527344);
   border-radius: 4px;
 }
 
@@ -424,6 +434,8 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-content: flex-start;
+  max-height: 550px;
 }
 
 .order--order-info-wrapper {
@@ -432,6 +444,10 @@ footer {
   width: 560px;
   margin: 0 auto;
   flex-wrap: nowrap;
+}
+
+.order--order-id:hover {
+  cursor: pointer;
 }
 
 .card--title-wrapper {
@@ -447,4 +463,49 @@ footer {
   flex-wrap: wrap;
   align-content: center;
   border-left: 1px solid #eceef0;
+}
+
+.cart-wrapper {
+  height: 785px;
+  width: 900px;
+  margin: 0 auto;
+}
+
+.cart--carts-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  gap: 20px;
+  max-height: 530px;
+}
+
+.cart--shipping-info-wrapper {
+  padding-left: 40px;
+  border-left: 1px solid #eceef0;
+}
+
+.card--buttons-wrapper {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.card--delete-icon-wrapper:hover {
+  cursor: pointer;
+}
+
+.card--title {
+  text-align: left;
+  height: 44px;
+  overflow: hidden;
+}
+
+.three-dots {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 270px;
+  white-space: nowrap;
+  padding: 0 5px;
 }

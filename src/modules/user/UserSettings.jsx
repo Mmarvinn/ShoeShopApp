@@ -38,7 +38,7 @@ export const UserSettings = () => {
           />
           <TabMenuLink
             path="/settings/orders"
-            text="coming soon..."
+            text="Orders"
             selected={location.pathname === '/settings/orders'}
           />
           <TabMenuLink

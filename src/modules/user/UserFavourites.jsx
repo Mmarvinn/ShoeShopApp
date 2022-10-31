@@ -18,7 +18,7 @@ export const UserFavourites = () => {
   }, []);
 
   return (
-    <div className="w-100" style={{ margin: '0 10px' }}>
+    <div className="w-100" style={{ margin: '20px 35px' }}>
       {products.length !== 0 ? (
         <ItemList products={products} />
       ) : (

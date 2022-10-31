@@ -36,7 +36,6 @@ export const Item = ({
     e.stopPropagation();
     if (location.pathname.includes('settings')) {
       toggleFavourite(data.id);
-      changeAlertProductName(data.title);
       return;
     }
     toggleFavourite(data.id);

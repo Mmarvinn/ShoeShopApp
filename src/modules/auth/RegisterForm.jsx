@@ -146,7 +146,7 @@ export const RegisterForm = ({ closeModal }) => {
           error={phoneValidation}
           fullWidth
           label="Phone number"
-          type="number"
+          type="tel"
           value={values.phone}
           onChange={handleChange('phone')}
           onKeyUp={() => setPhoneValidation(validatePhone(values))}
@@ -199,6 +199,15 @@ export const RegisterForm = ({ closeModal }) => {
       </Box>
       <Box>
         <Button
+          disabled={
+            fullNameValidation ||
+            phoneValidation ||
+            emailValidation ||
+            passwordValidation ||
+            Boolean(values.fullName === '') ||
+            Boolean(values.phone === '') ||
+            Boolean(values.password === '')
+          }
           fullWidth
           type="submit"
           sx={{

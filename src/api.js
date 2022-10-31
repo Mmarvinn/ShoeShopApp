@@ -34,3 +34,11 @@ export const getFavouritesUrl = (offset, limit) => {
 export const favouriteUrl = (productId) => {
   return `/api/products/${productId}/favorite`;
 };
+
+export const createOrderUrl = () => {
+  return `/api/orders`;
+};
+
+export const getUserOrdersUrl = (offset, limit) => {
+  return `/api/orders?offset=${offset}&limit=${limit}`;
+};

@@ -1,31 +1,43 @@
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-export const OrderHistoryCard = () => {
-  const params = useParams();
+import { OrderDetailsModal } from '../user/OrderDetailsModal';
 
-  // console.log(params.orderId);
+export const OrderHistoryCard = ({ order }) => {
+  const { id, totalPrice, updatedAt } = order;
+  const orderDate = updatedAt.slice(0, 10).split('-').reverse().join('.');
+  const [openModal, setOpenModal] = useState(false);
+
+  const toggleOpenModal = () => setOpenModal(!openModal);
 
   return (
-    <div className="user-settings--order">
-      <div className="order--order-id-wrapper">
-        <span style={{ paddingLeft: '20px' }}>Order ID:</span>
-        <Link to={`/settings/orders/order-details/333333`}>
-          <span className="fw-500" style={{ color: 'blue' }}>
-            333333
+    <>
+      <div className="user-settings--order">
+        <div className="order--order-id-wrapper">
+          <span style={{ paddingLeft: '20px' }}>Order ID:</span>
+          <span
+            onClick={toggleOpenModal}
+            className="fw-500 order--order-id"
+            style={{ color: 'blue' }}
+          >
+            {id}
           </span>
-        </Link>
+        </div>
+        <div className="order--order-price-wrapper">
+          <span>Price:</span>
+          <span className="fw-500" style={{ paddingRight: '20px' }}>
+            $ {totalPrice}
+          </span>
+        </div>
+        <div className="order--order-date-wrapper">
+          <span style={{ paddingLeft: '20px' }}>Date:</span>
+          <span className="fw-500">{orderDate}</span>
+        </div>
       </div>
-      <div className="order--order-price-wrapper">
-        <span>Price:</span>
-        <span className="fw-500" style={{ paddingRight: '20px' }}>
-          $ 775.19
-        </span>
-      </div>
-      <div className="order--order-date-wrapper">
-        <span style={{ paddingLeft: '20px' }}>Date:</span>
-        <span className="fw-500">06.04.2022</span>
-      </div>
-    </div>
+      <OrderDetailsModal
+        onClose={toggleOpenModal}
+        open={openModal}
+        order={order}
+      />
+    </>
   );
 };

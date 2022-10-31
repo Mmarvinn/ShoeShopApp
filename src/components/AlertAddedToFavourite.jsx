@@ -1,19 +1,19 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
 export const AlertAddedToFavourite = ({ handleCloseAlert, alertProps }) => {
-  // const timer = () => {
-  //   setTimeout(() => {
-  //     handleCloseAlert(true);
-  //     timer();
-  //   }, 3000);
-  // };
+  useEffect(() => {
+    if (alertProps.isOpen) {
+      const timer = setTimeout(() => {
+        handleCloseAlert(true);
+      }, 3000);
 
-  // if (alertProps.isOpen) {
-  //   clearTimeout(timer);
-  //   timer();
-  // }
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [alertProps.isOpen, alertProps.productTitle, alertProps.alertType]);
 
   return (
     <div className="favourite-alert">
@@ -24,11 +24,15 @@ export const AlertAddedToFavourite = ({ handleCloseAlert, alertProps }) => {
           severity={alertProps.alertType}
         >
           {alertProps.alertType === 'success' ? (
-            <span>
-              The {alertProps.productTitle} successfully added to favourite
-            </span>
+            <div style={{ display: 'flex' }}>
+              The <span className="three-dots">{alertProps.productTitle}</span>
+              successfully added to favorite
+            </div>
           ) : (
-            <span>The {alertProps.productTitle} deleted from favourites</span>
+            <div style={{ display: 'flex' }}>
+              The <span className="three-dots">{alertProps.productTitle}</span>{' '}
+              deleted from favorites
+            </div>
           )}
         </Alert>
       </Stack>

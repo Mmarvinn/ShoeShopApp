@@ -68,7 +68,7 @@ export const UserEditAccount = () => {
       dispatch(updateUserAccount(data))
         .unwrap()
         .then(() => {
-          console.log('Info updated succesfully');
+          console.log('Info updated successfully');
           setUpdateUserInfoError((prevState) => ({
             ...prevState,
             error: false,

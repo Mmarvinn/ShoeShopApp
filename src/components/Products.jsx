@@ -38,7 +38,7 @@ export const Products = () => {
     setTimeout(() => {
       setAlertProps((prevState) => ({
         ...prevState,
-        alertType: bool ? 'error' : 'success',
+        alertType: bool ? 'info' : 'success',
         isOpen: alertProps.isOpen,
       }));
       handleCloseAlert(false);
