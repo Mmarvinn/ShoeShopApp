@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useLocation, useNavigate } from 'react-router-dom';
+
 import { LoginForm } from './LoginForm';
 
 const style = {

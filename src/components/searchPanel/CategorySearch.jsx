@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useState, useEffect } from 'react';
+
 import { getCategories } from '../../modules/product/getCategories';
 import categoriesImg from '../../images/category-icon.svg';
 

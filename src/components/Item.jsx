@@ -1,11 +1,12 @@
-import { AddToFavoriteButton } from './AddToFavourite';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
+import { AddToFavoriteButton } from './AddToFavourite';
 import {
   addFavouriteApi,
   deleteFavouriteApi,
 } from '../modules/user/addToFavourite';
 import { useMakeRequest } from '../hooks/useMakeRequest';
-import { useLocation } from 'react-router-dom';
 import { OneProductInfoModal } from '../modules/product/OneProductInfoModal';
 
 export const Item = ({
@@ -78,7 +79,6 @@ export const Item = ({
           <span className="product--price w-100">${data.price}</span>
         </div>
       </div>
-      {/* TODO: Works with routing as SignIn and Sign Out */}
       <OneProductInfoModal
         {...data}
         onFavorite={() => toggleFavourite(data.id)}

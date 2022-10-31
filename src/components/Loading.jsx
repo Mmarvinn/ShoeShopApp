@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 
 export function Loading({ isOpen }) {
-  const [open, setOpen] = React.useState(isOpen);
+  const [open, setOpen] = useState(isOpen);
   const handleClose = () => {
     setOpen(false);
   };

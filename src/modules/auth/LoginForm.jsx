@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -8,14 +10,13 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
 import { FormHelperText } from '@mui/material';
+
 import {
   validatePassword,
   validateEmail,
   validateLoginInputs,
 } from '../../services/validationInputs';
-import { useDispatch } from 'react-redux';
 import { logInUser } from '../user/redux/userSlice';
 
 export const LoginForm = ({ closeModal }) => {

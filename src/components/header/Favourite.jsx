@@ -1,9 +1,8 @@
-import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 export function FavoriteBasket() {
   const user = useSelector((state) => state.user.data);

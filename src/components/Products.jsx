@@ -1,9 +1,10 @@
-import { ItemList } from './ItemList';
-import { SearchPanel } from './searchPanel/SearchPanel';
-import Button from '@mui/material/Button';
-import { getProductsApi } from '../modules/product/getProduct';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
+
+import { ItemList } from './ItemList';
+import { SearchPanel } from './searchPanel/SearchPanel';
+import { getProductsApi } from '../modules/product/getProduct';
 import { getProductsBySearchApi } from '../modules/product/getProductsBySearch';
 import { SearchNotFound } from './searchPanel/SearchNotFound';
 import { getAllProductsWithoutChoosenCategoryApi } from '../modules/product/getAllProducts';
@@ -95,7 +96,6 @@ export const Products = () => {
     setTextOfFind('');
     setPage(0);
     setSelectedCategory(category);
-    console.log(`func setCategory, page now: ${page}`);
     const newProducts = await request(
       getProductsApi,
       category,

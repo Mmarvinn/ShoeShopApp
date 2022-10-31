@@ -1,5 +1,6 @@
-import logo from '../../images/apiko.svg';
 import { Link } from 'react-router-dom';
+
+import logo from '../../images/apiko.svg';
 
 export const HeaderLogo = () => {
   return (

@@ -1,8 +1,9 @@
-import notFoundImg from '../images/404-error.png';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Stack } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+
+import notFoundImg from '../images/404-error.png';
 
 export const NotFound = () => {
   const navigate = useNavigate();

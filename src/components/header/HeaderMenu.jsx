@@ -1,16 +1,17 @@
-import * as React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
 import { logout } from '../../modules/user/redux/userSlice';
 
 export function HeaderMenu({ userEmail, userFullName }) {
   const dispatch = useDispatch();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,9 +48,6 @@ export function HeaderMenu({ userEmail, userFullName }) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        // MenuListProps={{
-        //   'aria-labelledby': 'basic-button',
-        // }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         PaperProps={{
           elevation: 0,

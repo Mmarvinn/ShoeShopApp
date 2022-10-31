@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import { getJwtToken } from '../services/localStorage';
 
 export const PrivateRoute = ({ children }) => {

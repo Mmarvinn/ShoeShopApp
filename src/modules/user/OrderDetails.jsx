@@ -1,6 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import closeIcon from '../../images/close-icon.svg';
 import { OrderDetailsCard } from './OrderDetailsCard';
-import { v4 as uuidv4 } from 'uuid';
 
 export const OrderDetails = ({ closeModal, order }) => {
   const orderDate = order.updatedAt.slice(0, 10).split('-').reverse().join('/');

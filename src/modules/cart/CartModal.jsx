@@ -3,6 +3,7 @@ import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+
 import closeIcon from '../../images/close-icon.svg';
 
 const boxWrapperStyle = {

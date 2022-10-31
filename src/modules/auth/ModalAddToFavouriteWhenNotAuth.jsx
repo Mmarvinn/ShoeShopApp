@@ -1,10 +1,8 @@
-import * as React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useLocation, useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
 
 const style = {
   position: 'absolute',

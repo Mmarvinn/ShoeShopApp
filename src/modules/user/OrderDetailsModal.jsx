@@ -1,6 +1,6 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+
 import { OrderDetails } from './OrderDetails';
 
 const style = {
@@ -11,12 +11,12 @@ const style = {
   width: 804,
   height: 744,
   bgcolor: 'background.paper',
-  border: '2px solid var(--orange-main)',
   boxShadow: 24,
   p: 4,
+  borderRadius: '4px',
 };
 
-export const OrderDetailsModal = ({ onClose, open, order, orderDate }) => {
+export const OrderDetailsModal = ({ onClose, open, order }) => {
   return (
     <div>
       <Modal

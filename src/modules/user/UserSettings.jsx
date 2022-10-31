@@ -1,13 +1,12 @@
-import { Navigate } from 'react-router-dom';
-import { ClientAvatar } from '../../components/header/ClientAvatar';
-import Box from '@mui/material/Box';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+
+import { ClientAvatar } from '../../components/header/ClientAvatar';
 import { UserOrdersHistory } from './UserOrdersHistory';
 import { UserFavourites } from './UserFavourites';
 import { UserEditInfo } from './UserEditInfo';
 import { TabMenuLink } from '../../components/TabMenuLink';
-import { Routes, Route } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
 export const UserSettings = () => {
   const location = useLocation();
@@ -38,7 +37,7 @@ export const UserSettings = () => {
           />
           <TabMenuLink
             path="/settings/orders"
-            text="Orders"
+            text="Orders History"
             selected={location.pathname === '/settings/orders'}
           />
           <TabMenuLink

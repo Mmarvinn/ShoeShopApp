@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import { getAccount } from '../getAccount';
 import { deleteJwtToken, setJwtToken } from '../../../services/localStorage';
 import { userSignIn } from '../userSignIn';

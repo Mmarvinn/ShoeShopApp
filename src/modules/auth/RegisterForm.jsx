@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -10,6 +11,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 import { FormHelperText } from '@mui/material';
+
 import { signInUser } from '../user/redux/userSlice';
 import {
   validatePassword,
@@ -18,7 +20,6 @@ import {
   validatePhone,
   validateRegisterInputs,
 } from '../../services/validationInputs';
-import { useDispatch } from 'react-redux';
 
 export const RegisterForm = ({ closeModal }) => {
   const dispatch = useDispatch();

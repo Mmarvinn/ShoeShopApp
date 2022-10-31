@@ -1,5 +1,4 @@
 const JWT_TOKEN = 'JWT_TOKEN';
-const USER_INFO = 'USER_INFO';
 
 export const getJwtToken = () => {
   return localStorage.getItem(JWT_TOKEN);
