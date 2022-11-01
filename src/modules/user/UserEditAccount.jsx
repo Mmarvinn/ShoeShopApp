@@ -15,6 +15,7 @@ import {
 import { useMakeRequest } from '../../hooks/useMakeRequest';
 import { getCountriesApi } from './getCountries';
 import { updateUserAccount } from '../user/redux/userSlice';
+import { Notification } from '../../components/Notification';
 
 export const UserEditAccount = () => {
   const userData = useSelector((state) => state.user.data || {});
@@ -25,6 +26,10 @@ export const UserEditAccount = () => {
   const [phoneValidation, setPhoneValidation] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
   const [values, setValues] = useState({});
+  const [notificationProps, setNotificationProps] = useState({
+    isOpen: false,
+    type: 'success',
+  });
 
   const [updateUserInfoError, setUpdateUserInfoError] = useState({
     error: false,
@@ -35,6 +40,23 @@ export const UserEditAccount = () => {
     mt: '25px',
     width: '376px',
     height: '36px',
+  };
+
+  const closeNotification = (bool) => {
+    setNotificationProps((prevState) => ({
+      ...prevState,
+      isOpen: !bool,
+    }));
+  };
+
+  const changeNotificationType = (type) => {
+    closeNotification(true);
+    setNotificationProps((prevState) => ({
+      ...prevState,
+      type: type,
+      isOpen: notificationProps.isOpen,
+    }));
+    closeNotification(false);
   };
 
   const countryChange = (event, newValue) => {
@@ -68,7 +90,7 @@ export const UserEditAccount = () => {
       dispatch(updateUserAccount(data))
         .unwrap()
         .then(() => {
-          console.log('Info updated successfully');
+          changeNotificationType('success');
           setUpdateUserInfoError((prevState) => ({
             ...prevState,
             error: false,
@@ -77,6 +99,7 @@ export const UserEditAccount = () => {
         })
         .catch((err) => {
           console.log(err);
+          changeNotificationType('error');
           setUpdateUserInfoError((prevState) => ({
             ...prevState,
             error: true,
@@ -229,6 +252,18 @@ export const UserEditAccount = () => {
           </Button>
         </Box>
       </form>
+      <Notification
+        closeNotification={closeNotification}
+        isOpen={notificationProps.isOpen}
+        notificationTitle={
+          updateUserInfoError.error
+            ? 'Something went wrong... repeat later, please'
+            : 'Your account information successfully updated'
+        }
+        notificationType={notificationProps.type}
+        isTitleOfProducts={false}
+        durationMs={4000}
+      />
     </div>
   );
 };

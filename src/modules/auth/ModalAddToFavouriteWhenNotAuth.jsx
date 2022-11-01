@@ -4,6 +4,8 @@ import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
+import closeIcon from '../../images/close-icon.svg';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -12,9 +14,9 @@ const style = {
   width: 350,
   height: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius: '5px',
 };
 
 export const ModalAddToFavouriteWhenNotAuth = () => {
@@ -30,10 +32,16 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
       <Modal
         open={location.pathname.includes('add-to-favourite')}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="modal when user not auth"
       >
         <Box sx={style}>
+          <button
+            onClick={handleClose}
+            className="one-product--close-btn"
+            style={{ top: '20px', right: '20px' }}
+          >
+            <img style={{ width: '22px' }} src={closeIcon} alt="close icon" />
+          </button>
           <Box sx={{ width: 250, margin: '50px auto' }}>
             <h2 style={{ margin: '30px 0', textAlign: 'center' }}>
               To continue please register or log in

@@ -25,10 +25,16 @@ export const CartShippingInfo = ({
 }) => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data || {});
+  const productsInCart = useSelector((state) => state.cart);
+
   const { request, error, loading } = useMakeRequest();
   const [countries, setCountries] = useState([]);
-  const [fullNameValidation, setFullNameValidation] = useState(false);
-  const [phoneValidation, setPhoneValidation] = useState(false);
+  const [fullNameValidation, setFullNameValidation] = useState(
+    !Boolean(userData.fullName)
+  );
+  const [phoneValidation, setPhoneValidation] = useState(
+    !Boolean(userData.phone)
+  );
   const [cityValidation, setCityValidation] = useState(!Boolean(userData.city));
   const [addressValidation, setAddressValidation] = useState(
     !Boolean(userData.address)
@@ -64,14 +70,16 @@ export const CartShippingInfo = ({
   }, []);
 
   useEffect(() => {
-    setValues((prevState) => ({
-      ...prevState,
-      phone: userData.phone,
-      fullName: userData.fullName,
-      country: userData.country,
-      city: userData.city,
-      address: userData.address,
-    }));
+    if (userData?.fullName) {
+      setValues((prevState) => ({
+        ...prevState,
+        phone: userData.phone,
+        fullName: userData.fullName,
+        country: userData.country,
+        city: userData.city,
+        address: userData.address,
+      }));
+    }
   }, [userData]);
 
   return (
@@ -216,7 +224,8 @@ export const CartShippingInfo = ({
               phoneValidation ||
               cityValidation ||
               addressValidation ||
-              !Boolean(values.country)
+              !Boolean(values.country) ||
+              Object.values(productsInCart).length === 0
             }
             type="submit"
             sx={{

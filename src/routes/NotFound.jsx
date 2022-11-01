@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Stack } from '@mui/material';
@@ -10,6 +10,10 @@ export const NotFound = () => {
 
   const handleClick = () => {
     navigate(-1);
+  };
+
+  const goHome = () => {
+    navigate('/home');
   };
 
   return (
@@ -50,26 +54,25 @@ export const NotFound = () => {
           </Button>
         </Box>
         <Box>
-          <Link to="/home">
-            <Button
-              fullWidth
-              type="button"
-              sx={{
-                mt: '40px',
-                textTransform: 'none',
-                backgroundColor: 'var(--orange-main)',
-                width: 200,
-                height: 36,
-                fontSize: '16px',
-                '&:hover': {
-                  backgroundColor: '#c35309',
-                },
-              }}
-              variant="contained"
-            >
-              Go HOME
-            </Button>
-          </Link>
+          <Button
+            onClick={goHome}
+            fullWidth
+            type="button"
+            sx={{
+              mt: '40px',
+              textTransform: 'none',
+              backgroundColor: 'var(--orange-main)',
+              width: 200,
+              height: 36,
+              fontSize: '16px',
+              '&:hover': {
+                backgroundColor: '#c35309',
+              },
+            }}
+            variant="contained"
+          >
+            Go HOME
+          </Button>
         </Box>
       </Stack>
     </div>

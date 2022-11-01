@@ -13,6 +13,7 @@ import { FormHelperText } from '@mui/material';
 
 import { validatePassword } from '../../services/validationInputs';
 import { updateUserPassword } from './redux/userSlice';
+import { Notification } from '../../components/Notification';
 
 export const UserEditPassword = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,11 @@ export const UserEditPassword = () => {
     currentPassword: false,
     newPassword: false,
     confirmPassword: false,
+  });
+
+  const [notificationProps, setNotificationProps] = useState({
+    isOpen: false,
+    type: 'success',
   });
 
   const [updateUserPasswordError, setUpdateUserPasswordError] = useState({
@@ -70,6 +76,23 @@ export const UserEditPassword = () => {
     });
   };
 
+  const closeNotification = (bool) => {
+    setNotificationProps((prevState) => ({
+      ...prevState,
+      isOpen: !bool,
+    }));
+  };
+
+  const changeNotificationType = (type) => {
+    closeNotification(true);
+    setNotificationProps((prevState) => ({
+      ...prevState,
+      type: type,
+      isOpen: notificationProps.isOpen,
+    }));
+    closeNotification(false);
+  };
+
   const handleSubmitUserPassword = async (event) => {
     event.preventDefault();
 
@@ -85,6 +108,7 @@ export const UserEditPassword = () => {
       dispatch(updateUserPassword(data))
         .unwrap()
         .then(() => {
+          changeNotificationType('success');
           setUpdateUserPasswordError((prevState) => ({
             ...prevState,
             error: false,
@@ -103,6 +127,7 @@ export const UserEditPassword = () => {
         })
         .catch((err) => {
           console.log(err);
+          changeNotificationType('error');
           setUpdateUserPasswordError((prevState) => ({
             ...prevState,
             error: true,
@@ -310,6 +335,18 @@ export const UserEditPassword = () => {
           </Button>
         </Box>
       </form>
+      <Notification
+        closeNotification={closeNotification}
+        isOpen={notificationProps.isOpen}
+        notificationTitle={
+          updateUserPasswordError.error
+            ? 'Something went wrong... repeat later, please'
+            : 'Your account password successfully updated'
+        }
+        notificationType={notificationProps.type}
+        isTitleOfProducts={false}
+        durationMs={4000}
+      />
     </div>
   );
 };

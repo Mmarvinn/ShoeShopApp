@@ -23,7 +23,7 @@ export function CartIcon() {
   return (
     <Link to="/cart">
       <IconButton
-        aria-label="cart"
+        aria-label="cart icon"
         color="inherit"
         size="small"
         sx={{ margin: '0 5px' }}

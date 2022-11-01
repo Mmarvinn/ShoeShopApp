@@ -30,8 +30,6 @@ export const BelowModal = () => {
       <Modal
         open={location.pathname.includes('register')}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <h2>HELLO BELOW</h2>

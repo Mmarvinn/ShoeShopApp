@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
+import closeIcon from '../../images/close-icon.svg';
 import { LoginForm } from './LoginForm';
 
 const style = {
@@ -11,7 +12,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid var(--orange-main)',
+  borderRadius: '4px',
   boxShadow: 24,
   p: 4,
 };
@@ -29,10 +30,17 @@ export const LogInModal = () => {
       <Modal
         open={location.pathname.includes('login')}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="login"
+        aria-describedby="user login form"
       >
         <Box sx={style}>
+          <button
+            onClick={handleClose}
+            className="one-product--close-btn"
+            style={{ top: '20px', right: '20px' }}
+          >
+            <img style={{ width: '18px' }} src={closeIcon} alt="close icon" />
+          </button>
           <LoginForm closeModal={handleClose} />
         </Box>
       </Modal>

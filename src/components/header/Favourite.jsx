@@ -13,7 +13,7 @@ export function FavoriteBasket() {
         to={user ? '/settings/favourites' : '/home/add-to-favourite'}
         style={{ color: 'white' }}
       >
-        <IconButton aria-label="fingerprint" color="inherit">
+        <IconButton aria-label="favorite" color="inherit">
           <FavoriteIcon
             color="inherit"
             sx={{ width: '20px', height: '20px' }}

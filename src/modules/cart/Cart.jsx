@@ -43,7 +43,9 @@ export const Cart = () => {
 
     const cartOrder = await request(createOrderApi, data);
 
-    if (cartOrder.ok) {
+    // cartOrder.status === 401(Unauthorized) need if some user not registered but he want to buy something on our website,
+    // and we get some data from him, and after get order from him
+    if (cartOrder.ok || cartOrder.status === 401) {
       dispatch(clearStore());
     }
 

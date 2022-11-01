@@ -22,8 +22,8 @@ export const OrderDetailsModal = ({ onClose, open, order }) => {
       <Modal
         open={open}
         onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="detail order"
+        aria-describedby="user order details"
       >
         <Box sx={style}>
           <OrderDetails closeModal={onClose} order={order} />

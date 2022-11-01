@@ -1,6 +1,7 @@
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
@@ -51,6 +52,7 @@ const outlinedBtnStyle = {
 };
 
 export const CartModal = ({ openModal, toggleOpenModal, onClose }) => {
+  const user = useSelector((state) => state.user.data);
   const navigate = useNavigate();
 
   const shoppingBtnClick = () => {
@@ -66,8 +68,8 @@ export const CartModal = ({ openModal, toggleOpenModal, onClose }) => {
       <Modal
         open={openModal}
         onClose={toggleOpenModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="thanks"
+        aria-describedby="thanks user for purchase"
       >
         <Box sx={boxWrapperStyle}>
           <button
@@ -97,14 +99,16 @@ export const CartModal = ({ openModal, toggleOpenModal, onClose }) => {
               >
                 Continue shopping
               </Button>
-              <Button
-                onClick={orderHistoryBtnClick}
-                fullWidth
-                sx={outlinedBtnStyle}
-                variant="outlined"
-              >
-                View order history
-              </Button>
+              {user?.fullName && (
+                <Button
+                  onClick={orderHistoryBtnClick}
+                  fullWidth
+                  sx={outlinedBtnStyle}
+                  variant="outlined"
+                >
+                  View order history
+                </Button>
+              )}
             </Stack>
           </Box>
         </Box>
