@@ -11,7 +11,7 @@ const style = {
   flexWrap: 'wrap',
   justifyContent: 'center',
   position: 'absolute',
-  top: '40%',
+  top: '41%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
@@ -25,31 +25,40 @@ export const RegisterModal = ({ toggleUserLogin }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClose = () => {
-    navigate(-1);
+  const handleClose = (path) => {
+    const indexOfPath = location.pathname.indexOf(path);
+    const prevPath = location.pathname.slice(0, indexOfPath);
+    navigate(prevPath);
   };
+
   return (
     <div>
       <Modal
         open={location.pathname.includes('register')}
-        onClose={handleClose}
+        onClose={() => handleClose('/register')}
         aria-labelledby="user register"
         aria-describedby="user register form"
       >
-        <Box sx={style}>
-          <button
-            onClick={handleClose}
-            className="one-product--close-btn"
-            style={{ top: '20px', right: '20px' }}
-          >
-            <img style={{ width: '18px' }} src={closeIcon} alt="close icon" />
-          </button>
-          <RegisterForm
-            closeModal={handleClose}
-            toggleUserLogin={toggleUserLogin}
+        <>
+          <Box sx={style}>
+            <button
+              onClick={() => handleClose('/register')}
+              className="one-product--close-btn"
+              style={{ top: '20px', right: '20px' }}
+            >
+              <img style={{ width: '18px' }} src={closeIcon} alt="close icon" />
+            </button>
+            <RegisterForm
+              closeModal={() => handleClose('/register')}
+              toggleUserLogin={toggleUserLogin}
+            />
+          </Box>
+          <BelowModal
+            pathname="/login"
+            text="I already have an account, "
+            textInLink="Log In"
           />
-          {/* <BelowModal /> */}
-        </Box>
+        </>
       </Modal>
     </div>
   );

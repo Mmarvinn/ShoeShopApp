@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
@@ -27,6 +27,10 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
     navigate(-1);
   };
 
+  const redirect = (path) => {
+    navigate(path);
+  };
+
   return (
     <div>
       <Modal
@@ -48,50 +52,47 @@ export const ModalAddToFavouriteWhenNotAuth = () => {
             </h2>
 
             <Stack spacing={4} direction="column">
-              <Link to="/home/login">
-                <Button
-                  fullWidth
-                  sx={{
-                    backgroundColor: 'var(--orange-main)',
-                    '&:hover': {
-                      backgroundColor: '#c35309',
-                    },
-                  }}
-                  variant="contained"
-                >
-                  Continue to log in
-                </Button>
-              </Link>
-              <Link to="/home/register">
-                <Button
-                  fullWidth
-                  sx={{
-                    backgroundColor: 'var(--orange-main)',
-                    '&:hover': {
-                      backgroundColor: '#c35309',
-                    },
-                  }}
-                  variant="contained"
-                >
-                  Continue to register
-                </Button>
-              </Link>
-              <Link to="/home">
-                <Button
-                  fullWidth
-                  sx={{
-                    color: 'var(--orange-main)',
-                    borderColor: 'var(--orange-main)',
-                    '&:hover': {
-                      color: '#c35309',
-                      borderColor: '#c35309',
-                    },
-                  }}
-                  variant="outlined"
-                >
-                  Continue as quest
-                </Button>
-              </Link>
+              <Button
+                onClick={() => redirect('/home/login')}
+                fullWidth
+                sx={{
+                  backgroundColor: 'var(--orange-main)',
+                  '&:hover': {
+                    backgroundColor: '#c35309',
+                  },
+                }}
+                variant="contained"
+              >
+                Continue to log in
+              </Button>
+              <Button
+                onClick={() => redirect('/home/register')}
+                fullWidth
+                sx={{
+                  backgroundColor: 'var(--orange-main)',
+                  '&:hover': {
+                    backgroundColor: '#c35309',
+                  },
+                }}
+                variant="contained"
+              >
+                Continue to register
+              </Button>
+              <Button
+                onClick={() => redirect(-1)}
+                fullWidth
+                sx={{
+                  color: 'var(--orange-main)',
+                  borderColor: 'var(--orange-main)',
+                  '&:hover': {
+                    color: '#c35309',
+                    borderColor: '#c35309',
+                  },
+                }}
+                variant="outlined"
+              >
+                Continue as quest
+              </Button>
             </Stack>
           </Box>
         </Box>

@@ -1,7 +1,8 @@
 import './App.css';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 
 import { PrivateRoute } from './HOKs/PrivateRoute';
+import { RedirectRoute } from './HOKs/RedirectRoute';
 import { Layout } from './components/Layout';
 import { Products } from './components/Products';
 import { NotFound } from './routes/NotFound';
@@ -23,6 +24,7 @@ function App() {
       );
       return newPath + lastPath;
     }
+    return location.pathname + lastPath;
   };
 
   useUserLogin();
@@ -31,6 +33,7 @@ function App() {
     <div className="App">
       <Layout>
         <Routes>
+          <Route index element={<Navigate to="/home" replace />} />
           <Route path="/home/*" element={<Products />} />
           <Route
             path="/settings/*"
@@ -40,18 +43,33 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/*" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Routes>
           <Route
             path={slicePathname('/register')}
-            element={<RegisterModal />}
+            element={
+              <RedirectRoute>
+                <RegisterModal />
+              </RedirectRoute>
+            }
           />
-          <Route path={slicePathname('/login')} element={<LogInModal />} />
+          <Route
+            path={slicePathname('/login')}
+            element={
+              <RedirectRoute>
+                <LogInModal />
+              </RedirectRoute>
+            }
+          />
           <Route
             path={slicePathname('/add-to-favourite')}
-            element={<ModalAddToFavouriteWhenNotAuth />}
+            element={
+              <RedirectRoute>
+                <ModalAddToFavouriteWhenNotAuth />
+              </RedirectRoute>
+            }
           />
         </Routes>
       </Layout>

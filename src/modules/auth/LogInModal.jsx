@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 
 import closeIcon from '../../images/close-icon.svg';
 import { LoginForm } from './LoginForm';
+import { BelowModal } from './BelowModal';
 
 const style = {
   position: 'absolute',
@@ -21,28 +22,37 @@ export const LogInModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClose = () => {
-    navigate(-1);
+  const handleClose = (path) => {
+    const indexOfPath = location.pathname.indexOf(path);
+    const prevPath = location.pathname.slice(0, indexOfPath);
+    navigate(prevPath);
   };
 
   return (
     <div>
       <Modal
         open={location.pathname.includes('login')}
-        onClose={handleClose}
+        onClose={() => handleClose('/login')}
         aria-labelledby="login"
         aria-describedby="user login form"
       >
-        <Box sx={style}>
-          <button
-            onClick={handleClose}
-            className="one-product--close-btn"
-            style={{ top: '20px', right: '20px' }}
-          >
-            <img style={{ width: '18px' }} src={closeIcon} alt="close icon" />
-          </button>
-          <LoginForm closeModal={handleClose} />
-        </Box>
+        <>
+          <Box sx={style}>
+            <button
+              onClick={() => handleClose('/login')}
+              className="one-product--close-btn"
+              style={{ top: '20px', right: '20px' }}
+            >
+              <img style={{ width: '18px' }} src={closeIcon} alt="close icon" />
+            </button>
+            <LoginForm closeModal={() => handleClose('/login')} />
+          </Box>
+          <BelowModal
+            pathname="/register"
+            text="I have no account, "
+            textInLink="Register now"
+          />
+        </>
       </Modal>
     </div>
   );

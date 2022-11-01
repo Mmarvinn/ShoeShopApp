@@ -109,7 +109,7 @@ footer {
   opacity: 0.4;
 }
 
-.MuiAutocomplete-input {
+.search-panel--category-wrapper .MuiAutocomplete-input {
   padding-left: 30px !important;
 }
 
