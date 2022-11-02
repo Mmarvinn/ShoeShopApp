@@ -15,7 +15,7 @@ export const Item = ({ data }) => {
   const user = useSelector((state) => state.user.data);
   const navigate = useNavigate();
   const location = useLocation();
-  const { request } = useMakeRequest();
+  const { request, loading } = useMakeRequest();
   const [toggleLike, setToggleLike] = useState(data.favorite);
   const [openModal, setOpenModal] = useState(false);
   const [notificationProps, setNotificationProps] = useState({
@@ -23,7 +23,9 @@ export const Item = ({ data }) => {
     type: 'success',
   });
 
-  const toggleOpenModal = () => setOpenModal(!openModal);
+  const toggleOpenModal = () => {
+    setOpenModal(!openModal);
+  };
 
   const toggleFavourite = async (productId) => {
     if (!user) {
@@ -96,14 +98,15 @@ export const Item = ({ data }) => {
           <div
             style={{
               position: 'absolute',
-              top: '55%',
-              left: '80%',
+              top: '61%',
+              left: '81%',
               color: 'white',
             }}
           >
             <AddToFavoriteButton
               favorite={toggleLike}
               handleClick={handleClick}
+              disabled={loading}
             />
           </div>
         </div>
@@ -118,6 +121,7 @@ export const Item = ({ data }) => {
         onClose={toggleOpenModal}
         open={openModal}
         favorite={toggleLike}
+        disabled={loading}
       />
       <Notification
         closeNotification={closeNotification}

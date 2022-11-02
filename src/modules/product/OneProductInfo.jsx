@@ -17,6 +17,7 @@ export const OneProductInfo = ({
   favorite,
   onFavorite,
   id,
+  disabled,
 }) => {
   const navigate = useNavigate();
   const productFromCart = useSelector((state) => state.cart[id]);
@@ -143,6 +144,7 @@ export const OneProductInfo = ({
           </div>
           <div>
             <Button
+              disabled={disabled}
               className="one-product--added-btn"
               onClick={onFavorite}
               sx={

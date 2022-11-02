@@ -25,6 +25,7 @@ export const OneProductInfoModal = ({
   open,
   title,
   description,
+  disabled,
   ...rest
 }) => {
   return (
@@ -40,6 +41,7 @@ export const OneProductInfoModal = ({
             onClose={onClose}
             title={title}
             description={description}
+            disabled={disabled}
             {...rest}
           />
         </Box>

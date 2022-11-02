@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-export function AddToFavoriteButton({ favorite, handleClick }) {
+export function AddToFavoriteButton({ favorite, handleClick, disabled }) {
   return (
     <Stack
       direction="row"
@@ -18,7 +18,7 @@ export function AddToFavoriteButton({ favorite, handleClick }) {
         boxShadow: 3,
       }}
     >
-      <IconButton onClick={handleClick} color="inherit">
+      <IconButton onClick={handleClick} disabled={disabled} color="inherit">
         {favorite ? (
           <FavoriteIcon
             style={{

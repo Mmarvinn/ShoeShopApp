@@ -110,22 +110,35 @@ const userSlice = createSlice({
       state.error = action.payload;
     });
 
+    builder.addCase(updateUserAccount.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+
     builder.addCase(updateUserAccount.fulfilled, (state, action) => {
       state.data = action.payload;
       state.error = null;
+      state.loading = false;
     });
 
     builder.addCase(updateUserAccount.rejected, (state, action) => {
       state.error = action.payload;
+      state.loading = false;
+    });
+
+    builder.addCase(updateUserPassword.pending, (state) => {
+      state.loading = true;
+      state.error = null;
     });
 
     builder.addCase(updateUserPassword.fulfilled, (state) => {
-      console.log('password updated');
       state.error = null;
+      state.loading = false;
     });
 
     builder.addCase(updateUserPassword.rejected, (state, action) => {
       state.error = action.payload;
+      state.loading = false;
     });
   },
 });

@@ -9,10 +9,11 @@ import { getProductsBySearchApi } from '../modules/product/getProductsBySearch';
 import { SearchNotFound } from './searchPanel/SearchNotFound';
 import { getAllProductsWithoutChoosenCategoryApi } from '../modules/product/getAllProducts';
 import { useMakeRequest } from '../hooks/useMakeRequest';
+import { Loading } from './Loading';
 
 export const Products = () => {
   const userData = useSelector((state) => state.user.data);
-  const { request } = useMakeRequest();
+  const { request, loading } = useMakeRequest();
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSorting, setSelectedSorting] = useState('latest');
@@ -166,6 +167,7 @@ export const Products = () => {
         sortingDisabled={!!textOfFind}
         handleClearCategory={handleClearCategory}
       />
+      {loading && <Loading />}
       {products.length !== 0 ? (
         <>
           <ItemList products={products} />

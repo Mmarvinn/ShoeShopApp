@@ -11,7 +11,7 @@ import { CartModal } from './CartModal';
 export const Cart = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => Object.values(state.cart));
-  const { request, loading, error } = useMakeRequest();
+  const { request, loading } = useMakeRequest();
   const [values, setValues] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [allQuantity, setAllQuantity] = useState(
@@ -87,6 +87,7 @@ export const Cart = () => {
               totalCost={totalCost}
               values={values}
               setValues={setValues}
+              loading={loading}
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -14,8 +14,10 @@ import { FormHelperText } from '@mui/material';
 import { validatePassword } from '../../services/validationInputs';
 import { updateUserPassword } from './redux/userSlice';
 import { Notification } from '../../components/Notification';
+import { Loading } from '../../components/Loading';
 
 export const UserEditPassword = () => {
+  const loadingFromStore = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
     currentPassword: '',
@@ -335,12 +337,13 @@ export const UserEditPassword = () => {
           </Button>
         </Box>
       </form>
+      {loadingFromStore && <Loading />}
       <Notification
         closeNotification={closeNotification}
         isOpen={notificationProps.isOpen}
         notificationTitle={
           updateUserPasswordError.error
-            ? 'Something went wrong... repeat later, please'
+            ? 'Something went wrong... repeat, please'
             : 'Your account password successfully updated'
         }
         notificationType={notificationProps.type}

@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { OrderHistoryCard } from './OrderHistoryCard';
 import { useMakeRequest } from '../../hooks/useMakeRequest';
 import { getUserOrdersApi } from './getOrders';
+import { Loading } from '../../components/Loading';
 
 export const UserOrdersHistory = () => {
-  const { request, loading, error } = useMakeRequest();
+  const { request, loading } = useMakeRequest();
   const [orders, setOrders] = useState([]);
   const productsPerPage = 16;
 
@@ -20,7 +21,9 @@ export const UserOrdersHistory = () => {
 
   return (
     <div className="user-settings--orders-history-list">
-      {orders.length !== 0 ? (
+      {loading ? (
+        <Loading />
+      ) : orders.length !== 0 ? (
         orders.map((order) => {
           return <OrderHistoryCard key={order.id} order={order} />;
         })

@@ -22,12 +22,13 @@ export const CartShippingInfo = ({
   values,
   setValues,
   handleSubmit,
+  loading,
 }) => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data || {});
   const productsInCart = useSelector((state) => state.cart);
 
-  const { request, error, loading } = useMakeRequest();
+  const { request } = useMakeRequest();
   const [countries, setCountries] = useState([]);
   const [fullNameValidation, setFullNameValidation] = useState(
     !Boolean(userData.fullName)
@@ -225,7 +226,8 @@ export const CartShippingInfo = ({
               cityValidation ||
               addressValidation ||
               !Boolean(values.country) ||
-              Object.values(productsInCart).length === 0
+              Object.values(productsInCart).length === 0 ||
+              loading
             }
             type="submit"
             sx={{

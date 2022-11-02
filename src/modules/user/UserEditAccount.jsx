@@ -16,11 +16,13 @@ import { useMakeRequest } from '../../hooks/useMakeRequest';
 import { getCountriesApi } from './getCountries';
 import { updateUserAccount } from '../user/redux/userSlice';
 import { Notification } from '../../components/Notification';
+import { Loading } from '../../components/Loading';
 
 export const UserEditAccount = () => {
   const userData = useSelector((state) => state.user.data || {});
+  const loadingFromStore = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
-  const { request, error, loading } = useMakeRequest();
+  const { request, loading } = useMakeRequest();
   const [countries, setCountries] = useState([]);
   const [fullNameValidation, setFullNameValidation] = useState(false);
   const [phoneValidation, setPhoneValidation] = useState(false);
@@ -252,12 +254,14 @@ export const UserEditAccount = () => {
           </Button>
         </Box>
       </form>
+      {loading && <Loading />}
+      {loadingFromStore && <Loading />}
       <Notification
         closeNotification={closeNotification}
         isOpen={notificationProps.isOpen}
         notificationTitle={
           updateUserInfoError.error
-            ? 'Something went wrong... repeat later, please'
+            ? 'Something went wrong... repeat, please'
             : 'Your account information successfully updated'
         }
         notificationType={notificationProps.type}
