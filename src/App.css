@@ -20,7 +20,7 @@ a {
 
 main {
   width: 900px;
-  min-height: 785px;
+  min-height: calc(100vh - 152px);
   margin: 0 auto;
 }
 
@@ -328,7 +328,7 @@ footer {
 
 .user-settings {
   width: 950px;
-  min-height: 785px;
+  min-height: calc(100vh - 152px);
   background-color: #ffffff;
   display: flex;
   flex-wrap: wrap;
