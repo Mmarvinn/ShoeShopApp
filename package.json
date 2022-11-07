@@ -19,7 +19,7 @@
     "react-select": "^5.1.0",
     "uuid": "^9.0.0"
   },
-  "proxy": "https://mmarvinn.github.io/ShopApp/",
+  "proxy": "http://localhost:3000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
