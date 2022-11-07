@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cdf6807d.css",
+    "main.js": "/static/js/main.6f332911.js",
+    "static/media/404-error.png": "/static/media/404-error.da0466ae8a8f76a1a2ba.png",
+    "static/media/apiko.svg": "/static/media/apiko.2d6d441d78ccfb02fb807bd157258e4c.svg",
+    "static/media/delete-icon.svg": "/static/media/delete-icon.9182730cedc7d3145cac00433e2ffe92.svg",
+    "index.html": "/index.html",
+    "static/media/sorting-icon.svg": "/static/media/sorting-icon.cba9f7849459d577256010f41e071d35.svg",
+    "static/media/close-icon.svg": "/static/media/close-icon.ecf89a6daa7506e90c308ca30ddfbebf.svg",
+    "static/media/category-icon.svg": "/static/media/category-icon.fd0fca2b018bf7dede7632b89ff6ef08.svg",
+    "static/media/done-icon.svg": "/static/media/done-icon.4157fb1217df3314b58fa0a5a63fb0c0.svg",
+    "static/media/vertical-line.svg": "/static/media/vertical-line.9732801baca9301c8f73e0efecefe881.svg",
+    "main.cdf6807d.css.map": "/static/css/main.cdf6807d.css.map",
+    "main.6f332911.js.map": "/static/js/main.6f332911.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cdf6807d.css",
+    "static/js/main.6f332911.js"
+  ]
+}
